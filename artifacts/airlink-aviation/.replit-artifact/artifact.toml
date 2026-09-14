@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Airlink Aviation"
+description = "A professional aerospace and defence website for Airlink Aviation, with a responsive public experience, dynamic product catalogue, product detail views, resources, and enquiry workflows."
+version = "1.0.0"
+id = "artifacts/airlink-aviation"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23811
+
+[services.development]
+run = "pnpm --filter @workspace/airlink-aviation run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/airlink-aviation", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/airlink-aviation/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23811"
+BASE_PATH = "/"

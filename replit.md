@@ -1,6 +1,6 @@
-# [Project name]
+# Airlink Aviation Website
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Staging website for Airlink Aviation, helping aerospace and defence B2B visitors understand product families and start technical enquiries.
 
 ## Run & Operate
 
@@ -22,15 +22,24 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/airlink-aviation/src/App.tsx` — public routes, page composition, API hook usage, and enquiry flows
+- `artifacts/airlink-aviation/src/index.css` — Airlink visual tokens, typography, grid texture, and responsive styling
+- `lib/api-spec/openapi.yaml` — source of truth for public content and enquiry API contracts
+- `artifacts/api-server/src/routes/content.ts` — products, site summary, resources, and enquiry endpoints
+- `lib/db/src/schema/index.ts` — PostgreSQL/Drizzle schema for products, resources, and enquiries
+- `AIRLINK-AUDIT.md` — initial audit of the live production reference and redevelopment gaps
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The live production domain is untouched; this artifact is a separate staging build.
+- Public product and resource content is served through the shared API and PostgreSQL rather than hardcoded into page components.
+- The initial content model stores configuration-dependent technical details as explicit "provided for the selected configuration" copy instead of inventing specifications.
+- The frontend uses generated OpenAPI hooks from `@workspace/api-client-react`; the backend validates request and response shapes with generated Zod schemas.
+- Admin authentication and content management are intentionally deferred until the source repository and operational requirements are supplied.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Public routes include the homepage, product catalogue with search/category filters, reusable product detail pages, resources, about, capabilities, and an enquiry/contact flow. Enquiries are validated server-side and persisted in PostgreSQL.
 
 ## User preferences
 
@@ -38,7 +47,9 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Run `pnpm --filter @workspace/api-spec run codegen` after changing `lib/api-spec/openapi.yaml`.
+- The generated React client uses `Headers.entries()`, so `lib/api-client-react/tsconfig.json` must include `dom.iterable`.
+- Do not connect the staging artifact to `www.airlinkaviation.in` or alter DNS until the new content is approved.
 
 ## Pointers
 

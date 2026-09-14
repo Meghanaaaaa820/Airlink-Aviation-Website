@@ -3,13 +3,21 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Public content and enquiry API for the Airlink Aviation website
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: products
+    description: Public product catalogue
+  - name: resources
+    description: Public technical resources
+  - name: enquiries
+    description: Public enquiry submission
+  - name: site
+    description: Public homepage content
 paths:
   /healthz:
     get:
@@ -24,6 +32,116 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /site/summary:
+    get:
+      operationId: getSiteSummary
+      tags: [site]
+      summary: Get homepage summary content
+      responses:
+        "200":
+          description: Homepage summary content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteSummary"
+  /products:
+    get:
+      operationId: getProducts
+      tags: [products]
+      summary: List published products
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: featured
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Published products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+  /products/{slug}:
+    get:
+      operationId: getProductBySlug
+      tags: [products]
+      summary: Get a published product by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDetail"
+        "404":
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /resources:
+    get:
+      operationId: getResources
+      tags: [resources]
+      summary: List published resources
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Published resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resource"
+  /enquiries:
+    post:
+      operationId: createEnquiry
+      tags: [enquiries]
+      summary: Submit a product or general enquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EnquiryInput"
+      responses:
+        "201":
+          description: Enquiry accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnquiryReceipt"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +151,162 @@ components:
           type: string
       required:
         - status
-
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        fields:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+        - error
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        category:
+          type: string
+        shortDescription:
+          type: string
+        image:
+          type: string
+        eyebrow:
+          type: string
+        featured:
+          type: boolean
+      required:
+        - id
+        - name
+        - slug
+        - category
+        - shortDescription
+        - image
+        - eyebrow
+        - featured
+    ProductDetail:
+      allOf:
+        - $ref: "#/components/schemas/Product"
+        - type: object
+          properties:
+            description:
+              type: string
+            features:
+              type: array
+              items:
+                type: string
+            applications:
+              type: array
+              items:
+                type: string
+            specifications:
+              type: array
+              items:
+                $ref: "#/components/schemas/Specification"
+            relatedProducts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Product"
+          required:
+            - description
+            - features
+            - applications
+            - specifications
+            - relatedProducts
+    Specification:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      required:
+        - label
+        - value
+    Resource:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        type:
+          type: string
+        actionLabel:
+          type: string
+        href:
+          type: string
+      required:
+        - id
+        - title
+        - description
+        - category
+        - type
+        - actionLabel
+        - href
+    SiteSummary:
+      type: object
+      properties:
+        productCount:
+          type: integer
+        capabilityCount:
+          type: integer
+        supportLabel:
+          type: string
+        qualityLabel:
+          type: string
+      required:
+        - productCount
+        - capabilityCount
+        - supportLabel
+        - qualityLabel
+    EnquiryInput:
+      type: object
+      properties:
+        productSlug:
+          type: ["string", "null"]
+        name:
+          type: string
+          minLength: 2
+        company:
+          type: string
+          minLength: 2
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          minLength: 7
+        requirement:
+          type: string
+          minLength: 2
+        message:
+          type: string
+          minLength: 10
+      required:
+        - name
+        - company
+        - email
+        - phone
+        - requirement
+        - message
+    EnquiryReceipt:
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+      required:
+        - id
+        - message

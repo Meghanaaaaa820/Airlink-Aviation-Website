@@ -1,0 +1,17 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "xZiTxp1ajBim0A0jvwkKo"
+uri = "file://.local/conversation-workspace/files/AIRLINK-AUDIT.md"
+type = "text"
+title = "Airlink Aviation initial audit"
+description = "A repository-aware baseline audit of the live Airlink Aviation site, including verified public findings, gaps, target architecture, schema, development phases, and the source handoff needed to continue safely."
+logical_id = "ad57c389-104b-4ae0-88ec-a1734de2b7ac"
+content_hash = "sha256:3e68dab31557b70fc27a59d47a7352c64813f24d9e00adea6939b49f57b81f39"
+size = 15395
+mtime_ms = 1789367619259
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/conversation:51e331a2-9e8f-4f8e-8736-820b52bfcc42/ad57c389-104b-4ae0-88ec-a1734de2b7ac/2bd2d796-c9e6-4e8e-b73c-b0696a2806a8"
+storage_version_token = "1789367624661417"
+content_type = "text/markdown"
+source_uri = "file://AIRLINK-AUDIT.md"

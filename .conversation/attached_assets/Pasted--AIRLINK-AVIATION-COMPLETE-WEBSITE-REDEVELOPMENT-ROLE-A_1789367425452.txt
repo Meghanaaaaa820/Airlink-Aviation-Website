@@ -1,0 +1,1128 @@
+# AIRLINK AVIATION — COMPLETE WEBSITE REDEVELOPMENT
+
+## ROLE
+
+Act as a senior full-stack engineer, UI/UX designer, software architect, database designer, QA engineer, SEO specialist, and production deployment engineer.
+
+You are working on a real company website for **Airlink Aviation**:
+
+https://www.airlinkaviation.in/
+
+The current website is already live and must NOT be damaged, overwritten, or modified directly.
+
+The goal is to create a **new, complete, production-ready, dynamic, responsive, professional, user-friendly version of the Airlink Aviation website** while preserving the existing website as the production reference.
+
+The new website should be suitable for a professional **aerospace and defence B2B company**.
+
+IMPORTANT:
+
+* Do NOT blindly rebuild everything.
+* First inspect and understand the existing project.
+* Do NOT delete existing functionality without understanding it.
+* Do NOT invent company information, certifications, product specifications, clients, partnerships, or technical claims.
+* Use the existing website/content as the source of truth unless new information is explicitly provided.
+* If information is missing, create an appropriate placeholder structure rather than inventing facts.
+* Keep the implementation maintainable and scalable.
+* Build real working functionality, not mockups or static demonstrations.
+
+---
+
+# 1. FIRST: ANALYZE THE EXISTING PROJECT
+
+Before making major changes, inspect the entire project.
+
+Identify and document:
+
+### Frontend
+
+* Framework
+* Language
+* Build tool
+* UI library
+* CSS framework
+* Existing components
+* Routing
+* State management
+* API integration
+* Forms
+* Existing responsive behavior
+
+### Backend
+
+If present:
+
+* Framework
+* API architecture
+* Authentication
+* Routes
+* Controllers
+* Services
+* Middleware
+* Validation
+* Error handling
+
+### Database
+
+If present:
+
+* Database technology
+* Existing schema
+* Tables
+* Relationships
+* Queries
+* ORM
+* Existing data
+
+### Deployment
+
+Identify:
+
+* Current hosting configuration
+* Environment variables
+* Build commands
+* Deployment configuration
+
+### Existing content
+
+Identify:
+
+* Pages
+* Products
+* Product descriptions
+* Images
+* Company information
+* Capabilities
+* Contact information
+* Resources
+* Certifications/standards
+* Existing forms
+
+DO NOT modify the live production domain.
+
+Create a safe development version of the project.
+
+---
+
+# 2. PRIMARY OBJECTIVE
+
+Transform the website into a:
+
+**Modern + Clean + Professional + Dynamic + Responsive + User-Friendly Aerospace & Defence B2B Website**
+
+The design should communicate:
+
+* Engineering excellence
+* Reliability
+* Precision
+* Technical capability
+* Aerospace/defence professionalism
+* Trust
+* Quality
+* Mission-critical engineering
+
+Avoid:
+
+* Excessive animations
+* Overly complicated layouts
+* Consumer/e-commerce styling
+* Unnecessary gradients
+* Excessive visual effects
+* Clutter
+* Huge amounts of text
+* Difficult navigation
+
+The UI should be visually impressive but simple and easy to understand.
+
+---
+
+# 3. WEBSITE INFORMATION ARCHITECTURE
+
+Create a clear structure similar to:
+
+HOME
+│
+├── ABOUT
+│
+├── CAPABILITIES
+│
+├── PRODUCTS
+│   ├── Aircraft HMI Control Panels
+│   ├── Multifunctional Displays
+│   ├── Radio Simulators
+│   ├── RF Cable Assemblies
+│   ├── Fiber Optic Interconnect Solutions
+│   ├── MIL-Grade Circular Connectors
+│   ├── Control Panels
+│   └── MicroD Connectors
+│
+├── INDUSTRIES / APPLICATIONS
+│
+├── QUALITY / CERTIFICATIONS
+│
+├── RESOURCES
+│   ├── Datasheets
+│   ├── Brochures
+│   └── Technical Documents
+│
+└── CONTACT / REQUEST ENQUIRY
+
+Use the actual current website content and company-provided information.
+
+Do not assume the listed products are the complete catalogue if the existing website indicates additional products.
+
+The architecture must support adding many more products in the future.
+
+---
+
+# 4. HOMEPAGE
+
+Create a strong but simple homepage.
+
+Recommended sections:
+
+### Hero
+
+Communicate Airlink's aerospace and defence engineering positioning.
+
+Use the existing company messaging where appropriate.
+
+Include clear CTAs such as:
+
+* Explore Products
+* Explore Capabilities
+* Request an Enquiry
+* Contact Us
+
+Do not invent marketing claims.
+
+### Company Introduction
+
+Briefly explain what Airlink does.
+
+### Key Capabilities
+
+Show major areas of engineering expertise.
+
+### Featured Products
+
+Display selected products dynamically.
+
+### Industries / Applications
+
+Explain where the company's solutions are used, using verified information.
+
+### Quality / Standards
+
+Display only verified standards/certifications.
+
+### Why Airlink
+
+Use real company information.
+
+### Call to Action
+
+Strong enquiry/contact section.
+
+---
+
+# 5. PRODUCTS — VERY IMPORTANT
+
+The Products section must become fully dynamic.
+
+Do NOT hardcode every product card into the page.
+
+Create a reusable product system.
+
+Every product should have a structure similar to:
+
+Product:
+
+* id
+* name
+* slug
+* category
+* shortDescription
+* description
+* images
+* thumbnail
+* features
+* specifications
+* applications
+* standards
+* configurations
+* datasheet
+* relatedProducts
+* status
+* createdAt
+* updatedAt
+
+The exact database design should be optimized according to the existing project.
+
+---
+
+# 6. PRODUCT LISTING PAGE
+
+Create a professional product catalogue.
+
+Include:
+
+* Product cards
+* Product image
+* Product name
+* Short description
+* Category
+* View Details button
+
+Add useful filtering/search if appropriate.
+
+Possible filters:
+
+* All
+* Displays
+* Control Systems
+* Simulation
+* RF
+* Cable Assemblies
+* Connectors
+* Other verified categories
+
+The filtering must work dynamically.
+
+Include:
+
+* Loading state
+* Empty state
+* Error state
+
+Do not make filtering unnecessarily complicated.
+
+---
+
+# 7. PRODUCT DETAIL PAGE
+
+Every product must have its own dynamic URL.
+
+Example:
+
+/products/aircraft-hmi-control-panels
+
+Do NOT manually create a separate React page for every product.
+
+Use one reusable product-detail template.
+
+The page should support:
+
+### Product Hero
+
+* Product image
+* Product name
+* Short description
+* Request Enquiry button
+
+### Overview
+
+Detailed product description.
+
+### Key Features
+
+Use a clean feature list.
+
+### Technical Specifications
+
+Display specifications in a professional table.
+
+### Applications
+
+Where the product is used.
+
+### Configurations
+
+If applicable.
+
+### Standards
+
+Only if verified.
+
+### Product Images
+
+Gallery if multiple images exist.
+
+### Datasheet
+
+Download/view button if a real datasheet exists.
+
+### Request Enquiry
+
+Allow the user to enquire specifically about that product.
+
+### Related Products
+
+Automatically show related products.
+
+---
+
+# 8. PRODUCT ENQUIRY SYSTEM
+
+This is a B2B website, so enquiry functionality is more important than e-commerce functionality.
+
+DO NOT create "Buy Now" functionality unless explicitly required.
+
+Create:
+
+**Request Product Enquiry**
+
+Fields:
+
+* Product
+* Name
+* Company
+* Email
+* Phone
+* Requirement
+* Message
+
+Validate all required fields.
+
+Show:
+
+* Success state
+* Validation errors
+* Server errors
+* Loading state
+
+Store enquiries securely if a backend/database is available.
+
+If email integration is used, keep credentials in environment variables.
+
+Never expose API keys or credentials in frontend code.
+
+---
+
+# 9. ADMIN PANEL
+
+Create a secure admin system if the current architecture supports a backend/database.
+
+Admin dashboard should allow authorized administrators to:
+
+### Products
+
+* Add product
+* Edit product
+* Delete product
+* Publish/unpublish product
+* Upload images
+* Add features
+* Add specifications
+* Add applications
+* Add configurations
+* Attach datasheets
+* Manage categories
+
+### Resources
+
+* Add documents
+* Edit documents
+* Delete documents
+* Upload files
+* Manage resource categories
+
+### Enquiries
+
+* View enquiries
+* View enquiry details
+* Change enquiry status
+* Delete/archive enquiries if appropriate
+
+Possible enquiry statuses:
+
+* New
+* Contacted
+* In Progress
+* Completed
+
+Do not expose the admin panel to normal website visitors.
+
+Implement authentication and authorization properly.
+
+---
+
+# 10. DATABASE
+
+If the project does not have an appropriate database, use a production-suitable relational database.
+
+Prefer PostgreSQL when appropriate.
+
+Create a clean schema for:
+
+* products
+* product_categories
+* product_images
+* product_features
+* product_specifications
+* product_applications
+* resources
+* enquiries
+* admin_users
+
+Optimize relationships appropriately.
+
+Do not over-engineer the database.
+
+Use migrations/schema management where appropriate.
+
+---
+
+# 11. API
+
+Create clean API endpoints for dynamic content.
+
+Examples:
+
+GET
+/products
+
+GET
+/products/:slug
+
+POST
+/admin/products
+
+PUT
+/admin/products/:id
+
+DELETE
+/admin/products/:id
+
+POST
+/enquiries
+
+GET
+/admin/enquiries
+
+GET
+/resources
+
+etc.
+
+Use proper:
+
+* HTTP methods
+* validation
+* error responses
+* authentication
+* authorization
+* status codes
+
+Never trust frontend validation alone.
+
+---
+
+# 12. UI/UX DESIGN
+
+The design must be:
+
+* Modern
+* Minimal
+* Professional
+* Technical
+* Easy to navigate
+* Accessible
+* Responsive
+
+Use consistent:
+
+* Typography
+* Spacing
+* Buttons
+* Cards
+* Icons
+* Borders
+* Shadows
+* Section layouts
+
+Do not use random design styles between pages.
+
+All pages must feel like the same website.
+
+---
+
+# 13. NAVIGATION
+
+Create a clean responsive navbar.
+
+Suggested navigation:
+
+Home
+About
+Capabilities
+Products
+Industries
+Resources
+Contact
+
+Products may have a dropdown/mega-menu if it improves usability.
+
+Include a prominent:
+
+**Request Enquiry**
+
+button.
+
+On mobile:
+
+* Hamburger menu
+* Easy touch targets
+* No horizontal overflow
+* Proper dropdown behavior
+
+---
+
+# 14. RESPONSIVE DESIGN
+
+The entire website must work properly on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+Test common widths.
+
+Pay particular attention to:
+
+* Navigation
+* Hero
+* Product cards
+* Product tables
+* Images
+* Forms
+* Buttons
+* Footer
+* Admin dashboard
+
+There must be no:
+
+* Horizontal scrolling
+* Overlapping content
+* Cut-off text
+* Broken images
+* Unusable buttons
+
+---
+
+# 15. PERFORMANCE
+
+Optimize:
+
+* Images
+* Lazy loading
+* Code splitting where useful
+* API requests
+* Database queries
+* Bundle size
+
+Avoid unnecessary dependencies.
+
+Do not add libraries unless they provide clear value.
+
+---
+
+# 16. ACCESSIBILITY
+
+Implement basic accessibility:
+
+* Semantic HTML
+* Proper heading hierarchy
+* Alt text
+* Keyboard navigation
+* Visible focus states
+* Accessible buttons
+* Form labels
+* Error messages
+* Sufficient contrast
+
+Do not rely only on color to communicate information.
+
+---
+
+# 17. SEO
+
+Implement proper SEO.
+
+Every public page should have:
+
+* Page title
+* Meta description
+* Canonical URL where appropriate
+* Open Graph metadata
+* Proper headings
+* Descriptive URLs
+* Image alt text
+
+Product pages should generate metadata dynamically from product data.
+
+Create where appropriate:
+
+* sitemap.xml
+* robots.txt
+* structured data/schema markup where appropriate
+
+Do not invent structured data claims.
+
+---
+
+# 18. SECURITY
+
+Treat this as a real production website.
+
+Implement:
+
+* Secure authentication
+* Password hashing
+* Authorization
+* Input validation
+* Server-side validation
+* Protection against common injection attacks
+* Secure file upload handling
+* File type validation
+* File size limits
+* Rate limiting for public enquiry forms if appropriate
+* Secure HTTP-only cookies where appropriate
+* Environment variables for secrets
+
+NEVER hardcode:
+
+* API keys
+* Passwords
+* Database credentials
+* Secret tokens
+
+Do not commit `.env` files.
+
+Create a safe `.env.example`.
+
+---
+
+# 19. ERROR HANDLING
+
+Every important feature must have proper states:
+
+Loading
+Empty
+Success
+Error
+
+Example:
+
+If products cannot load:
+
+Do not show a blank page.
+
+Show a user-friendly message and retry option.
+
+If enquiry submission fails:
+
+Tell the user that submission failed and allow retry.
+
+Do not expose internal stack traces to normal users.
+
+---
+
+# 20. IMAGES AND ASSETS
+
+Use the existing company images wherever appropriate.
+
+Do not replace real company product images with random stock images unless explicitly requested.
+
+If an image is missing:
+
+Use a clean placeholder component during development.
+
+Do not invent product photographs.
+
+Optimize image sizes for web performance.
+
+---
+
+# 21. CONTENT RULE
+
+This is extremely important.
+
+Do NOT fabricate:
+
+* Product specifications
+* Certifications
+* Standards
+* Client names
+* Defence organizations
+* Partnerships
+* Performance numbers
+* Compliance claims
+* Manufacturing capabilities
+* Product features
+
+If information isn't available, create a field/section that can later be populated by the administrator.
+
+Use wording such as:
+
+"Technical specifications will be provided based on the selected configuration."
+
+only when appropriate.
+
+---
+
+# 22. RESOURCES
+
+Create a dynamic resources section.
+
+Support:
+
+* Datasheets
+* Brochures
+* Technical documents
+* Company documents
+
+Each resource can contain:
+
+* Title
+* Description
+* Category
+* File
+* Date
+* Related product
+
+Allow administrators to manage resources.
+
+---
+
+# 23. CONTACT PAGE
+
+Create a professional contact page.
+
+Include:
+
+* Company contact information from the existing website
+* Address if verified
+* Email if verified
+* Phone if verified
+* Contact form
+* Map if appropriate
+
+Do not invent contact information.
+
+---
+
+# 24. ANIMATIONS
+
+Use animations carefully.
+
+Preferred:
+
+* Subtle fade
+* Smooth hover
+* Small transitions
+* Scroll reveal where useful
+
+Avoid:
+
+* Excessive parallax
+* Constant movement
+* Large loading animations
+* Distracting effects
+
+Performance and usability are more important than animation.
+
+---
+
+# 25. CODE QUALITY
+
+Write clean, maintainable code.
+
+Use:
+
+* Reusable components
+* Reusable hooks
+* Clear folder structure
+* Meaningful names
+* Separation of concerns
+* Type safety if TypeScript is used
+* Centralized API handling
+* Proper error handling
+
+Avoid:
+
+* Huge components
+* Duplicate code
+* Hardcoded product data
+* Hardcoded repeated UI
+* Unused dependencies
+* Temporary hacks
+* Console errors
+
+---
+
+# 26. DO NOT BREAK EXISTING FUNCTIONALITY
+
+Before modifying an existing feature:
+
+1. Understand it.
+2. Determine whether it is still required.
+3. Preserve it unless replacement is intentional.
+4. Test after modification.
+
+Do not remove working functionality just because you think it is unnecessary.
+
+---
+
+# 27. DEVELOPMENT PROCESS
+
+Work in phases.
+
+## PHASE 1 — ANALYSIS
+
+Do not make major modifications.
+
+Analyze the existing project and provide:
+
+* Current architecture
+* Technology stack
+* Folder structure
+* Existing pages
+* Existing components
+* Existing APIs
+* Existing database
+* Existing products
+* Existing problems
+* Recommended architecture
+
+Wait until the analysis is complete before major implementation.
+
+## PHASE 2 — FOUNDATION
+
+Set up:
+
+* Project structure
+* Routing
+* Global styles
+* Design system
+* API structure
+* Database
+* Environment configuration
+* Error handling
+
+## PHASE 3 — UI
+
+Implement:
+
+* Navbar
+* Homepage
+* About
+* Capabilities
+* Products
+* Resources
+* Contact
+* Footer
+
+## PHASE 4 — DYNAMIC PRODUCTS
+
+Implement:
+
+* Database
+* Product API
+* Product listing
+* Product filtering
+* Dynamic product pages
+* Product enquiry
+
+## PHASE 5 — ADMIN
+
+Implement:
+
+* Authentication
+* Dashboard
+* Product management
+* Resource management
+* Enquiry management
+
+## PHASE 6 — POLISH
+
+Improve:
+
+* Responsive design
+* Accessibility
+* SEO
+* Performance
+* Loading states
+* Error handling
+* Animations
+
+## PHASE 7 — TESTING
+
+Test every feature.
+
+Test:
+
+* Navigation
+* Product search/filter
+* Product details
+* Forms
+* Admin
+* Authentication
+* File uploads
+* API
+* Database
+* Mobile
+* Desktop
+
+Fix all critical errors.
+
+## PHASE 8 — PRODUCTION PREPARATION
+
+Prepare:
+
+* Production environment variables
+* Build process
+* Deployment configuration
+* Database configuration
+* Security configuration
+* SEO
+* Sitemap
+* Error handling
+
+Do NOT connect the new project to the production domain yet.
+
+---
+
+# 28. GIT/GITHUB
+
+The project must be Git-friendly.
+
+Do not commit:
+
+* .env
+* passwords
+* API keys
+* database credentials
+* private company secrets
+
+Create:
+
+.env.example
+
+with placeholder values.
+
+Use meaningful commits such as:
+
+"Create dynamic product model"
+
+"Implement product detail page"
+
+"Add admin product management"
+
+"Improve mobile navigation"
+
+---
+
+# 29. PRODUCTION DOMAIN
+
+The existing production domain is:
+
+https://www.airlinkaviation.in/
+
+DO NOT change DNS.
+
+DO NOT replace the production deployment.
+
+Develop using a separate development/staging URL.
+
+Only after the new website is completely tested and approved should the production domain be connected to the new deployment.
+
+The existing website must remain recoverable.
+
+---
+
+# 30. FINAL QUALITY STANDARD
+
+The final result should feel like a professional aerospace and defence engineering company's website.
+
+A visitor should be able to quickly understand:
+
+1. What Airlink does.
+2. What products/solutions Airlink provides.
+3. What each product does.
+4. What applications the product supports.
+5. What technical information is available.
+6. How to request more information.
+7. How to contact the company.
+
+The website must be:
+
+**Simple enough for a normal visitor.**
+
+AND
+
+**Detailed enough for a technical/B2B customer.**
+
+---
+
+# 31. VERY IMPORTANT AI DEVELOPMENT RULES
+
+Do not make massive uncontrolled changes.
+
+Before changing a major subsystem:
+
+* Inspect relevant files.
+* Explain what you are changing.
+* Preserve existing functionality.
+* Implement incrementally.
+* Test after implementation.
+* Fix errors before moving to the next phase.
+
+If a requirement is ambiguous, do not invent business logic.
+
+Choose the safest reasonable implementation and clearly identify assumptions.
+
+Never claim a feature is complete unless it actually works.
+
+Do not create fake data and present it as real company information.
+
+Use development/sample data only when necessary, and clearly isolate it so it can be replaced with real data.
+
+---
+
+# 32. START NOW
+
+Your FIRST task is NOT to rebuild the website.
+
+Your first task is:
+
+### AUDIT THE EXISTING PROJECT.
+
+Analyze the current project thoroughly and produce:
+
+1. Technology stack
+2. Folder structure
+3. Existing pages
+4. Existing components
+5. Current product implementation
+6. Existing backend/API
+7. Existing database
+8. Existing authentication
+9. Existing forms
+10. Existing deployment configuration
+11. Current problems
+12. What should be preserved
+13. What should be redesigned
+14. What should become dynamic
+15. Recommended final architecture
+16. Recommended database schema
+17. Recommended API structure
+18. Recommended folder structure
+19. Development phases
+20. Potential risks
+
+DO NOT make destructive changes during the initial audit.
+
+After the audit, proceed systematically through the development phases.
+
+The ultimate goal is a **fully working, dynamic, maintainable, secure, responsive, SEO-friendly and production-ready Airlink Aviation website**, while keeping the current live website completely safe until the new version is approved.

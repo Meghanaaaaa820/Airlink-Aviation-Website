@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 42 28% 95%;
+  --foreground: 214 31% 15%;
+  --border: 214 18% 81%;
+  --input: 214 18% 81%;
+  --ring: 187 54% 37%;
+  --card: 43 33% 98%;
+  --card-foreground: 214 31% 15%;
+  --card-border: 214 18% 81%;
+  --popover: 43 33% 98%;
+  --popover-foreground: 214 31% 15%;
+  --popover-border: 214 18% 81%;
+  --primary: 214 44% 19%;
+  --primary-foreground: 43 33% 98%;
+  --secondary: 188 31% 88%;
+  --secondary-foreground: 214 44% 19%;
+  --muted: 42 20% 90%;
+  --muted-foreground: 214 13% 43%;
+  --accent: 33 72% 55%;
+  --accent-foreground: 214 44% 19%;
+  --destructive: 3 60% 44%;
+  --destructive-foreground: 43 33% 98%;
+  --sidebar: 214 44% 19%;
+  --sidebar-foreground: 43 33% 98%;
+  --sidebar-border: 214 32% 30%;
+  --sidebar-primary: 33 72% 55%;
+  --sidebar-primary-foreground: 214 44% 19%;
+  --sidebar-accent: 188 31% 28%;
+  --sidebar-accent-foreground: 43 33% 98%;
+  --sidebar-ring: 187 54% 50%;
+  --app-font-sans: 'Manrope', sans-serif;
+  --app-font-mono: 'DM Mono', monospace;
+  --radius: 0.25rem;
+  --primary-border: hsl(var(--primary));
+  --secondary-border: hsl(var(--secondary));
+  --muted-border: hsl(var(--muted));
+  --accent-border: hsl(var(--accent));
+  --destructive-border: hsl(var(--destructive));
+  --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-accent-border: hsl(var(--sidebar-accent));
+  --elevate-1: rgba(21, 43, 60, 0.05);
+  --elevate-2: rgba(21, 43, 60, 0.09);
+}
+
+.dark {
+  --background: 214 44% 11%;
+  --foreground: 43 33% 95%;
+  --border: 214 26% 26%;
+  --input: 214 26% 26%;
+  --ring: 187 54% 50%;
+  --card: 214 36% 16%;
+  --card-foreground: 43 33% 95%;
+  --card-border: 214 26% 26%;
+  --popover: 214 36% 16%;
+  --popover-foreground: 43 33% 95%;
+  --popover-border: 214 26% 26%;
+  --primary: 188 31% 88%;
+  --primary-foreground: 214 44% 19%;
+  --secondary: 214 26% 26%;
+  --secondary-foreground: 43 33% 95%;
+  --muted: 214 30% 21%;
+  --muted-foreground: 214 15% 68%;
+  --accent: 33 72% 55%;
+  --accent-foreground: 214 44% 19%;
+  --destructive: 3 60% 52%;
+  --destructive-foreground: 43 33% 98%;
+  --sidebar: 214 52% 9%;
+  --sidebar-foreground: 43 33% 98%;
+  --sidebar-border: 214 28% 20%;
+  --sidebar-primary: 33 72% 55%;
+  --sidebar-primary-foreground: 214 44% 19%;
+  --sidebar-accent: 188 31% 24%;
+  --sidebar-accent-foreground: 43 33% 98%;
+  --sidebar-ring: 187 54% 50%;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply font-sans antialiased bg-background text-foreground; }
+  ::selection { background: hsl(var(--accent)); color: hsl(var(--primary)); }
+}
+
+.display-font { font-family: 'Space Grotesk', sans-serif; }
+.mono-font { font-family: var(--app-font-mono); }
+.site-grid {
+  background-image: linear-gradient(rgba(35, 73, 84, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(35, 73, 84, .07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.blueprint-grid {
+  background-color: #183545;
+  background-image: linear-gradient(rgba(150, 205, 202, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(150, 205, 202, .09) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.animate-rise { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+.delay-1 { animation-delay: .08s; } .delay-2 { animation-delay: .16s; } .delay-3 { animation-delay: .24s; }
+.line-marker { position: relative; }
+.line-marker::before { content: ''; position: absolute; left: -1.1rem; top: .55rem; width: .55rem; height: 1px; background: hsl(var(--accent)); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
