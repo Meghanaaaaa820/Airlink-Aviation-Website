@@ -65,7 +65,7 @@ function SectionKicker({ children }: { children: ReactNode }) { return <p classN
 
 function InstrumentPanel({ summary }: { summary: typeof fallbackSummary }) {
   return <div className="relative min-h-[370px] overflow-hidden bg-[#183545] p-7 text-[#d6e5df] md:min-h-[450px] md:p-10">
-    <div className="blueprint-grid absolute inset-0 opacity-80" /><div className="relative z-10 flex h-full min-h-[315px] flex-col justify-between">
+    <img src="/images/about.png" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-[.13] mix-blend-screen" /><div className="blueprint-grid absolute inset-0 opacity-80" /><div className="relative z-10 flex h-full min-h-[315px] flex-col justify-between">
       <div className="flex items-start justify-between"><span className="mono-font text-[9px] uppercase tracking-[.18em] text-[#91b8b6]">AL-01 / System overview</span><span className="flex items-center gap-2 mono-font text-[9px] uppercase tracking-[.14em] text-[#d78b2e]"><i className="size-2 rounded-full bg-[#d78b2e]" /> Live catalogue</span></div>
       <div className="relative mx-auto w-full max-w-[430px]"><div className="absolute left-[10%] top-1/2 h-px w-[80%] bg-[#8db4b1]/50" /><div className="absolute left-1/2 top-[10%] h-[80%] w-px bg-[#8db4b1]/50" /><div className="relative mx-auto grid aspect-square w-[64%] place-items-center rounded-full border border-[#8db4b1]/70"><div className="grid aspect-square w-[76%] place-items-center rounded-full border border-dashed border-[#8db4b1]/80"><div className="grid aspect-square w-[66%] place-items-center rounded-full border-2 border-[#d78b2e]"><Plane className="rotate-45 text-[#e2b168]" size={40} strokeWidth={1} /></div></div></div><span className="absolute -right-1 top-[15%] mono-font text-[8px] text-[#91b8b6]">01 / MISSION</span><span className="absolute -left-4 bottom-[13%] mono-font text-[8px] text-[#91b8b6]">02 / SYSTEM</span></div>
       <div className="flex items-end justify-between border-t border-[#789b9c]/40 pt-4"><span className="mono-font text-[9px] uppercase tracking-[.15em] text-[#91b8b6]">Airlink technical index</span><span className="display-font text-2xl text-[#e5b15f]">{summary.productCount || '—'}<sup className="ml-1 text-xs">families</sup></span></div>
@@ -73,8 +73,20 @@ function InstrumentPanel({ summary }: { summary: typeof fallbackSummary }) {
   </div>;
 }
 
+const productImageBySlug: Record<string, string> = {
+  'aircraft-hmi-control-panels': '/images/products/aircraft-hmi-control-panels.png',
+  'multifunctional-displays': '/images/products/multifunctional-displays.png',
+  'radio-simulators': '/images/products/radio-simulator.png',
+  'rf-cable-assemblies': '/images/products/rf-cable-assemblies.png',
+  'fiber-optic-interconnect-solutions': '/images/products/fiber-optic-interconnect-solutions.png',
+  'mil-grade-circular-connectors': '/images/products/mil-grade-circular-connectors.png',
+  'control-panels': '/images/products/control-panels.jpeg',
+  'microd-connectors': '/images/products/microd-connectors.jpeg',
+};
+
 function ProductVisual({ product, large = false }: { product: Product | ProductDetail; large?: boolean }) {
-  return <div className={`relative overflow-hidden bg-[#dce4df] ${large ? 'min-h-[340px] md:min-h-[550px]' : 'aspect-[1.1]'} site-grid`}><div className="absolute inset-0 grid place-items-center"><div className={`relative grid aspect-square ${large ? 'w-[58%]' : 'w-[55%]'} place-items-center rounded-full border border-[#789b9c]`}><div className="grid aspect-square w-[72%] place-items-center rounded-full border border-dashed border-[#789b9c]"><div className="grid aspect-square w-[63%] place-items-center rounded-full border-2 border-[#d78b2e]"><Target className="text-[#193b4b]" size={large ? 54 : 34} strokeWidth={1} /></div></div></div></div>{product.image && <img src={product.image} alt={product.name} className="absolute inset-0 h-full w-full object-cover mix-blend-multiply opacity-80" onError={(event) => { event.currentTarget.style.display = 'none'; }} />}<span className="absolute left-4 top-4 mono-font text-[9px] uppercase tracking-[.15em] text-[#193b4b]">{product.category}</span><span className="absolute bottom-4 right-4 mono-font text-[9px] text-[#617d80]">FIG. {String(product.id).padStart(2, '0')}</span></div>;
+  const image = product.image?.startsWith('/') ? product.image : productImageBySlug[product.slug];
+  return <div className={`group relative overflow-hidden bg-[#dce4df] ${large ? 'min-h-[340px] md:min-h-[550px]' : 'aspect-[1.1]'} site-grid`}><div className="absolute inset-0 grid place-items-center"><div className={`relative grid aspect-square ${large ? 'w-[58%]' : 'w-[55%]'} place-items-center rounded-full border border-[#789b9c]`}><div className="grid aspect-square w-[72%] place-items-center rounded-full border border-dashed border-[#789b9c]"><div className="grid aspect-square w-[63%] place-items-center rounded-full border-2 border-[#d78b2e]"><Target className="text-[#193b4b]" size={large ? 54 : 34} strokeWidth={1} /></div></div></div></div>{image && <img src={image} alt={product.name} className="absolute inset-0 h-full w-full object-contain p-5 mix-blend-multiply opacity-95 transition-transform duration-700 group-hover:scale-[1.04] md:p-8" onError={(event) => { event.currentTarget.style.display = 'none'; }} />}<div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#dce4df]/45 via-transparent to-white/10" /><span className="absolute left-4 top-4 mono-font text-[9px] uppercase tracking-[.15em] text-[#193b4b]">{product.category}</span><span className="absolute bottom-4 right-4 mono-font text-[9px] text-[#617d80]">FIG. {String(product.id).padStart(2, '0')}</span></div>;
 }
 
 function Home() {
