@@ -48,39 +48,61 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-:root {
-  --background: 42 28% 95%;
-  --foreground: 214 31% 15%;
-  --border: 214 18% 81%;
-  --input: 214 18% 81%;
-  --ring: 187 54% 37%;
-  --card: 43 33% 98%;
-  --card-foreground: 214 31% 15%;
-  --card-border: 214 18% 81%;
-  --popover: 43 33% 98%;
-  --popover-foreground: 214 31% 15%;
-  --popover-border: 214 18% 81%;
-  --primary: 214 44% 19%;
-  --primary-foreground: 43 33% 98%;
-  --secondary: 188 31% 88%;
-  --secondary-foreground: 214 44% 19%;
-  --muted: 42 20% 90%;
-  --muted-foreground: 214 13% 43%;
-  --accent: 33 72% 55%;
-  --accent-foreground: 214 44% 19%;
-  --destructive: 3 60% 44%;
-  --destructive-foreground: 43 33% 98%;
-  --sidebar: 214 44% 19%;
-  --sidebar-foreground: 43 33% 98%;
-  --sidebar-border: 214 32% 30%;
-  --sidebar-primary: 33 72% 55%;
-  --sidebar-primary-foreground: 214 44% 19%;
-  --sidebar-accent: 188 31% 28%;
-  --sidebar-accent-foreground: 43 33% 98%;
-  --sidebar-ring: 187 54% 50%;
+ :root {
+  /* =====================================================
+     AIRLINK AVIATION — DARK PRECISION THEME
+     ===================================================== */
+
+  --background: 210 45% 7%;
+  --foreground: 40 30% 95%;
+
+  --border: 205 28% 22%;
+  --input: 205 28% 22%;
+  --ring: 31 78% 54%;
+
+  --card: 208 40% 10%;
+  --card-foreground: 40 30% 95%;
+  --card-border: 205 28% 22%;
+
+  --popover: 208 40% 10%;
+  --popover-foreground: 40 30% 95%;
+  --popover-border: 205 28% 22%;
+
+  /* Airlink navy */
+  --primary: 205 48% 15%;
+  --primary-foreground: 40 30% 95%;
+
+  /* Technical blue */
+  --secondary: 202 34% 18%;
+  --secondary-foreground: 40 30% 95%;
+
+  /* Technical surfaces */
+  --muted: 207 32% 13%;
+  --muted-foreground: 202 16% 68%;
+
+  /* Airlink orange */
+  --accent: 31 78% 54%;
+  --accent-foreground: 208 45% 8%;
+
+  --destructive: 3 65% 50%;
+  --destructive-foreground: 40 30% 95%;
+
+  /* Sidebar */
+  --sidebar: 210 48% 6%;
+  --sidebar-foreground: 40 30% 95%;
+  --sidebar-border: 205 28% 20%;
+  --sidebar-primary: 31 78% 54%;
+  --sidebar-primary-foreground: 208 45% 8%;
+  --sidebar-accent: 202 34% 17%;
+  --sidebar-accent-foreground: 40 30% 95%;
+  --sidebar-ring: 31 78% 54%;
+
+  /* Fonts */
   --app-font-sans: 'Manrope', sans-serif;
   --app-font-mono: 'DM Mono', monospace;
-  --radius: 0.25rem;
+
+  --radius: 0.2rem;
+
   --primary-border: hsl(var(--primary));
   --secondary-border: hsl(var(--secondary));
   --muted-border: hsl(var(--muted));
@@ -88,8 +110,9 @@
   --destructive-border: hsl(var(--destructive));
   --sidebar-primary-border: hsl(var(--sidebar-primary));
   --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --elevate-1: rgba(21, 43, 60, 0.05);
-  --elevate-2: rgba(21, 43, 60, 0.09);
+
+  --elevate-1: rgba(0, 0, 0, 0.18);
+  --elevate-2: rgba(0, 0, 0, 0.32);
 }
 
 .dark {
@@ -134,12 +157,33 @@
 .display-font { font-family: 'Space Grotesk', sans-serif; }
 .mono-font { font-family: var(--app-font-mono); }
 .site-grid {
-  background-image: linear-gradient(rgba(35, 73, 84, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(35, 73, 84, .07) 1px, transparent 1px);
+  position: relative;
+  background-color: #081923;
+  background-image:
+    linear-gradient(
+      rgba(117, 165, 174, .07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(117, 165, 174, .07) 1px,
+      transparent 1px
+    );
   background-size: 28px 28px;
 }
 .blueprint-grid {
-  background-color: #183545;
-  background-image: linear-gradient(rgba(150, 205, 202, .09) 1px, transparent 1px), linear-gradient(90deg, rgba(150, 205, 202, .09) 1px, transparent 1px);
+  position: relative;
+  background-color: #07151e;
+  background-image:
+    linear-gradient(
+      rgba(117, 165, 174, .075) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(117, 165, 174, .075) 1px,
+      transparent 1px
+    );
   background-size: 34px 34px;
 }
 .noise::after {
@@ -159,4 +203,401 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* =========================================================
+   AIRLINK AVIATION — GLOBAL UI SYSTEM
+   ========================================================= */
+
+/* ---------- Global rendering ---------- */
+
+html {
+  min-width: 320px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+/* ---------- Images ---------- */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Focus states ---------- */
+
+:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 3px;
+}
+
+/* ---------- Premium selection ---------- */
+
+::selection {
+  background: hsl(var(--accent));
+  color: hsl(var(--primary));
+}
+
+/* ---------- Scrollbar ---------- */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #526f78 #07151e;
+}
+
+html::-webkit-scrollbar {
+  width: 9px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #07151e;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #526f78;
+  border: 2px solid #07151e;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #d78b2e;
+}
+
+/* =========================================================
+   REUSABLE UI COMPONENTS
+   ========================================================= */
+
+/* ---------- Cards ---------- */
+
+.ui-card {
+  position: relative;
+  border: 1px solid #c7d2ce;
+  background: #f9f8f2;
+  transition:
+    transform 220ms cubic-bezier(.2, .7, .2, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.ui-card:hover {
+  transform: translateY(-4px);
+  border-color: #8fa4a3;
+  box-shadow: 0 14px 35px rgba(21, 43, 60, 0.08);
+}
+
+/* ---------- Buttons ---------- */
+
+.ui-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-height: 48px;
+  padding: .8rem 1.25rem;
+  font-family: var(--app-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.ui-button:hover {
+  transform: translateY(-2px);
+}
+
+.ui-button:active {
+  transform: translateY(0);
+}
+
+.ui-button-primary {
+  background: #193b4b;
+  color: #f5f2e9;
+}
+
+.ui-button-primary:hover {
+  background: #284f5d;
+  box-shadow: 0 8px 22px rgba(25, 59, 75, 0.16);
+}
+
+.ui-button-accent {
+  background: #d78b2e;
+  color: #193b4b;
+}
+
+.ui-button-accent:hover {
+  background: #c47722;
+  box-shadow: 0 8px 22px rgba(199, 119, 34, 0.16);
+}
+
+.ui-button-outline {
+  border: 1px solid #193b4b;
+  color: #193b4b;
+  background: transparent;
+}
+
+.ui-button-outline:hover {
+  background: #193b4b;
+  color: #f5f2e9;
+}
+
+/* ---------- Technical labels ---------- */
+
+.ui-label {
+  font-family: var(--app-font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #bd7224;
+}
+
+/* ---------- Thin technical divider ---------- */
+
+.ui-divider {
+  width: 100%;
+  height: 1px;
+  background: #c7d2ce;
+}
+
+/* ---------- Image frame ---------- */
+
+.ui-image-frame {
+  position: relative;
+  overflow: hidden;
+  background: #e7eee8;
+}
+
+.ui-image-frame img {
+  transition:
+    transform 600ms cubic-bezier(.2, .7, .2, 1),
+    filter 400ms ease;
+}
+
+.ui-image-frame:hover img {
+  transform: scale(1.035);
+}
+
+/* ---------- Technical corner marker ---------- */
+
+.ui-corner-marker {
+  position: relative;
+}
+
+.ui-corner-marker::before,
+.ui-corner-marker::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.ui-corner-marker::before {
+  top: 0;
+  left: 0;
+  border-top: 1px solid #d78b2e;
+  border-left: 1px solid #d78b2e;
+}
+
+.ui-corner-marker::after {
+  right: 0;
+  bottom: 0;
+  border-right: 1px solid #d78b2e;
+  border-bottom: 1px solid #d78b2e;
+}
+
+/* =========================================================
+   GRID / BLUEPRINT POLISH
+   ========================================================= */
+
+.site-grid {
+  position: relative;
+  background-color: #f5f2e9;
+  background-image:
+    linear-gradient(
+      rgba(35, 73, 84, .055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(35, 73, 84, .055) 1px,
+      transparent 1px
+    );
+  background-size: 28px 28px;
+}
+
+.blueprint-grid {
+  position: relative;
+  background-color: #183545;
+  background-image:
+    linear-gradient(
+      rgba(150, 205, 202, .075) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(150, 205, 202, .075) 1px,
+      transparent 1px
+    );
+  background-size: 34px 34px;
+}
+
+/* =========================================================
+   SUBTLE ANIMATIONS
+   ========================================================= */
+
+@keyframes airlink-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.airlink-fade-up {
+  animation: airlink-fade-up .65s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+@keyframes airlink-line-grow {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.airlink-line-grow {
+  animation: airlink-line-grow .7s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .site-grid,
+  .blueprint-grid {
+    background-size: 24px 24px;
+  }
+
+  .ui-button {
+    min-height: 46px;
+    padding: .75rem 1rem;
+  }
+
+  .display-font {
+    text-wrap: balance;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-card,
+  .ui-button,
+  .ui-image-frame img {
+    transition: none;
+  }
+
+  .ui-card:hover,
+  .ui-button:hover,
+  .ui-button:active {
+    transform: none;
+  }
+
+  .airlink-fade-up,
+  .airlink-line-grow {
+    animation: none;
+  }
+}
+/* =========================================================
+   CONTACT FORM — INPUT VISIBILITY FIX
+   ========================================================= */
+
+input,
+textarea,
+select {
+  color: #193b4b !important;
+  caret-color: #193b4b;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #8a9b9d !important;
+  opacity: 1;
+}
+
+/* Chrome autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #193b4b !important;
+  caret-color: #193b4b;
+}
+
+/* Selected text */
+input::selection,
+textarea::selection {
+  background: #d78b2e;
+  color: #193b4b;
+}
+html {
+  scroll-behavior: auto;
+}
+/* =========================================================
+   FINAL NAVIGATION / HEADER OFFSET
+   Keeps page content visible below the fixed header.
+   ========================================================= */
+
+html {
+  scroll-padding-top: 96px;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+
+  [id] {
+    scroll-margin-top: 82px;
+  }
 }
