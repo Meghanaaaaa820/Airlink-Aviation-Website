@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -48,58 +48,58 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
- :root {
+:root {
   /* =====================================================
      AIRLINK AVIATION — DARK PRECISION THEME
      ===================================================== */
 
-  --background: 210 45% 7%;
-  --foreground: 40 30% 95%;
+  --background: 150 10% 96%;
+  --foreground: 208 55% 11%;
 
-  --border: 205 28% 22%;
-  --input: 205 28% 22%;
-  --ring: 31 78% 54%;
+  --border: 200 13% 83%;
+  --input: 200 13% 83%;
+  --ring: 36 91% 52%;
 
-  --card: 208 40% 10%;
-  --card-foreground: 40 30% 95%;
-  --card-border: 205 28% 22%;
+  --card: 0 0% 100%;
+  --card-foreground: 208 55% 11%;
+  --card-border: 200 13% 83%;
 
-  --popover: 208 40% 10%;
-  --popover-foreground: 40 30% 95%;
-  --popover-border: 205 28% 22%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 208 55% 11%;
+  --popover-border: 200 13% 83%;
 
   /* Airlink navy */
-  --primary: 205 48% 15%;
-  --primary-foreground: 40 30% 95%;
+  --primary: 208 55% 11%;
+  --primary-foreground: 0 0% 100%;
 
   /* Technical blue */
-  --secondary: 202 34% 18%;
-  --secondary-foreground: 40 30% 95%;
+  --secondary: 204 58% 13%;
+  --secondary-foreground: 0 0% 100%;
 
   /* Technical surfaces */
-  --muted: 207 32% 13%;
-  --muted-foreground: 202 16% 68%;
+  --muted: 150 10% 96%;
+  --muted-foreground: 201 10% 47%;
 
   /* Airlink orange */
-  --accent: 31 78% 54%;
-  --accent-foreground: 208 45% 8%;
+  --accent: 36 91% 52%;
+  --accent-foreground: 208 55% 11%;
 
-  --destructive: 3 65% 50%;
-  --destructive-foreground: 40 30% 95%;
+  --destructive: 4 65% 49%;
+  --destructive-foreground: 0 0% 100%;
 
   /* Sidebar */
-  --sidebar: 210 48% 6%;
-  --sidebar-foreground: 40 30% 95%;
+  --sidebar: 208 55% 11%;
+  --sidebar-foreground: 0 0% 100%;
   --sidebar-border: 205 28% 20%;
-  --sidebar-primary: 31 78% 54%;
-  --sidebar-primary-foreground: 208 45% 8%;
-  --sidebar-accent: 202 34% 17%;
-  --sidebar-accent-foreground: 40 30% 95%;
-  --sidebar-ring: 31 78% 54%;
+  --sidebar-primary: 36 91% 52%;
+  --sidebar-primary-foreground: 208 55% 11%;
+  --sidebar-accent: 204 58% 13%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-ring: 36 91% 52%;
 
   /* Fonts */
-  --app-font-sans: 'Manrope', sans-serif;
-  --app-font-mono: 'DM Mono', monospace;
+  --app-font-sans: 'Inter', sans-serif;
+  --app-font-mono: 'Inter', sans-serif;
 
   --radius: 0.2rem;
 
@@ -116,35 +116,35 @@
 }
 
 .dark {
-  --background: 214 44% 11%;
-  --foreground: 43 33% 95%;
-  --border: 214 26% 26%;
-  --input: 214 26% 26%;
-  --ring: 187 54% 50%;
-  --card: 214 36% 16%;
-  --card-foreground: 43 33% 95%;
-  --card-border: 214 26% 26%;
-  --popover: 214 36% 16%;
-  --popover-foreground: 43 33% 95%;
-  --popover-border: 214 26% 26%;
-  --primary: 188 31% 88%;
-  --primary-foreground: 214 44% 19%;
-  --secondary: 214 26% 26%;
-  --secondary-foreground: 43 33% 95%;
-  --muted: 214 30% 21%;
-  --muted-foreground: 214 15% 68%;
-  --accent: 33 72% 55%;
-  --accent-foreground: 214 44% 19%;
-  --destructive: 3 60% 52%;
-  --destructive-foreground: 43 33% 98%;
-  --sidebar: 214 52% 9%;
-  --sidebar-foreground: 43 33% 98%;
+  --background: 208 55% 11%;
+  --foreground: 0 0% 100%;
+  --border: 204 30% 27%;
+  --input: 204 30% 27%;
+  --ring: 36 91% 52%;
+  --card: 204 58% 13%;
+  --card-foreground: 0 0% 100%;
+  --card-border: 204 30% 27%;
+  --popover: 204 58% 13%;
+  --popover-foreground: 0 0% 100%;
+  --popover-border: 204 30% 27%;
+  --primary: 36 91% 52%;
+  --primary-foreground: 208 55% 11%;
+  --secondary: 204 30% 27%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 204 38% 17%;
+  --muted-foreground: 201 10% 70%;
+  --accent: 36 91% 52%;
+  --accent-foreground: 208 55% 11%;
+  --destructive: 4 65% 49%;
+  --destructive-foreground: 0 0% 100%;
+  --sidebar: 208 55% 11%;
+  --sidebar-foreground: 0 0% 100%;
   --sidebar-border: 214 28% 20%;
-  --sidebar-primary: 33 72% 55%;
-  --sidebar-primary-foreground: 214 44% 19%;
-  --sidebar-accent: 188 31% 24%;
-  --sidebar-accent-foreground: 43 33% 98%;
-  --sidebar-ring: 187 54% 50%;
+  --sidebar-primary: 36 91% 52%;
+  --sidebar-primary-foreground: 208 55% 11%;
+  --sidebar-accent: 204 38% 17%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-ring: 36 91% 52%;
 }
 
 @layer base {
@@ -605,36 +605,57 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0 1000px #0a1c29 inset;
-  box-shadow: 0 0 0 1000px #0a1c29 inset;
+  -webkit-text-fill-color: #071522;
+  -webkit-box-shadow: 0 0 0 1000px #fbfcfb inset;
+  box-shadow: 0 0 0 1000px #fbfcfb inset;
   caret-color: #f39a12;
   transition: background-color 5000s ease-in-out 0s;
 }
-/* =========================================================
-   AUTHENTICATION FORM — DARK INPUT OVERRIDE
-   ========================================================= */
 
-.auth-input,
-.auth-input:focus,
-.auth-input:hover {
-  color: #ffffff !important;
-  caret-color: #f39a12 !important;
-  background-color: #0a1c29 !important;
+/* Airlink corporate system — precise typography and restrained surfaces */
+:root {
+  --airlink-ink: #071522;
+  --airlink-navy: #0d2434;
+  --airlink-orange: #f39a12;
+  --airlink-paper: #f3f5f4;
+  --airlink-steel: #687780;
+  --app-font-sans: 'Inter', sans-serif;
 }
-
-.auth-input::placeholder {
-  color: #7f949f !important;
-  opacity: 1 !important;
+body {
+  background: var(--airlink-paper);
+  color: var(--airlink-ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
 }
-
-/* Chrome autofill */
-.auth-input:-webkit-autofill,
-.auth-input:-webkit-autofill:hover,
-.auth-input:-webkit-autofill:focus,
-.auth-input:-webkit-autofill:active {
-  -webkit-text-fill-color: #ffffff !important;
-  -webkit-box-shadow: 0 0 0 1000px #0a1c29 inset !important;
-  box-shadow: 0 0 0 1000px #0a1c29 inset !important;
-  caret-color: #f39a12 !important;
+.display-font, h1, h2, h3, h4 {
+  font-family: 'Manrope', sans-serif;
 }
+.mono-font {
+  font-family: 'Inter', sans-serif;
+}
+.noise::after { opacity: .018; }
+.site-grid {
+  background-color: #e9eeec;
+  background-image: linear-gradient(rgba(7,21,34,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(7,21,34,.045) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.blueprint-grid {
+  background-color: #0d2434;
+  background-image: linear-gradient(rgba(201,216,223,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(201,216,223,.055) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.ui-card {
+  background: #fff;
+  border-color: #d6dfdc;
+  box-shadow: 0 6px 22px rgba(7,21,34,.035);
+}
+.ui-button-primary { background: #0d2434; color: #fff; }
+.ui-button-primary:hover { background: #153a52; }
+.ui-button-accent { background: #f39a12; color: #071522; }
+.ui-button-accent:hover { background: #ffad2d; }
+.ui-label { color: #9a5a00; }
+.ui-divider { background: #d6dfdc; }
+input, textarea, select { font-family: 'Inter', sans-serif; }
+input, textarea, select { color: #071522 !important; }
+input::placeholder, textarea::placeholder { color: #7a898e !important; }
+.airlink-fade-up { animation: airlink-fade-up .72s cubic-bezier(.2,.7,.2,1) both; }
