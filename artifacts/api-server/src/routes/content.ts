@@ -1,4 +1,5 @@
 import { Router, type IRouter } from "express";
+import { Resend } from "resend";
 import { and, asc, count, eq, ilike, ne, or } from "drizzle-orm";
 import {
   CreateEnquiryBody,
@@ -20,6 +21,7 @@ import {
 } from "@workspace/db/schema";
 
 const router: IRouter = Router();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function productSummary(product: Product) {
   return {
@@ -165,6 +167,7 @@ router.get("/resources", async (req, res) => {
 
 router.post("/enquiries", async (req, res) => {
   const parsed = CreateEnquiryBody.safeParse(req.body);
+
   if (!parsed.success) {
     res.status(400).json({
       error: "Please check the enquiry details and try again.",
@@ -179,28 +182,122 @@ router.post("/enquiries", async (req, res) => {
   }
 
   try {
+    const name = parsed.data.name.trim();
+    const company = parsed.data.company.trim();
+    const email = parsed.data.email.trim().toLowerCase();
+    const phone = parsed.data.phone.trim();
+    const requirement = parsed.data.requirement.trim();
+    const message = parsed.data.message.trim();
+    const productSlug = parsed.data.productSlug ?? null;
+
+    // 1. Save enquiry in the database
     const [created] = await db
       .insert(enquiriesTable)
       .values({
-        productSlug: parsed.data.productSlug ?? null,
-        name: parsed.data.name.trim(),
-        company: parsed.data.company.trim(),
-        email: parsed.data.email.trim().toLowerCase(),
-        phone: parsed.data.phone.trim(),
-        requirement: parsed.data.requirement.trim(),
-        message: parsed.data.message.trim(),
+        productSlug,
+        name,
+        company,
+        email,
+        phone,
+        requirement,
+        message,
       })
       .returning({ id: enquiriesTable.id });
+
+    // 2. Send enquiry email to Airlink
+    const recipientEmails = (process.env.ENQUIRY_TO_EMAIL ?? "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
+
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error("RESEND_API_KEY is not configured");
+    }
+
+    if (!process.env.RESEND_FROM_EMAIL) {
+      throw new Error("RESEND_FROM_EMAIL is not configured");
+    }
+
+    if (recipientEmails.length === 0) {
+      throw new Error("ENQUIRY_TO_EMAIL is not configured");
+    }
+
+    const { error: emailError } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL,
+      to: recipientEmails,
+      replyTo: email,
+      subject: `New Airlink Aviation Enquiry - ${name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937;">
+          <h2 style="color: #0b2333;">New Website Enquiry</h2>
+
+          <p>A new enquiry has been submitted through the Airlink Aviation website.</p>
+
+          <table style="border-collapse: collapse; width: 100%; max-width: 700px;">
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Name</td>
+              <td style="padding: 8px 12px;">${name}</td>
+            </tr>
+
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Company</td>
+              <td style="padding: 8px 12px;">${company}</td>
+            </tr>
+
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Email</td>
+              <td style="padding: 8px 12px;">${email}</td>
+            </tr>
+
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Phone</td>
+              <td style="padding: 8px 12px;">${phone}</td>
+            </tr>
+
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Requirement</td>
+              <td style="padding: 8px 12px;">${requirement}</td>
+            </tr>
+
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold;">Product</td>
+              <td style="padding: 8px 12px;">${productSlug ?? "General enquiry"}</td>
+            </tr>
+
+            <tr>
+              <td style="padding: 8px 12px; font-weight: bold; vertical-align: top;">Message</td>
+              <td style="padding: 8px 12px; white-space: pre-wrap;">${message}</td>
+            </tr>
+          </table>
+
+          <p style="margin-top: 24px;">
+            You can reply directly to this email to contact the person who submitted the enquiry.
+          </p>
+        </div>
+      `,
+    });
+
+    if (emailError) {
+      req.log.error(
+        { err: emailError },
+        "Enquiry was saved, but email notification failed",
+      );
+
+      res.status(500).json({
+        error: "Your enquiry was saved, but we could not send the email notification.",
+      });
+      return;
+    }
 
     const data = CreateEnquiryResponse.parse({
       id: String(created?.id ?? ""),
       message: "Your enquiry has been received. Our team will follow up shortly.",
     });
+
     res.status(201).json(data);
   } catch (error) {
     req.log.error({ err: error }, "Failed to create enquiry");
     res.status(500).json({ error: "Unable to submit enquiry" });
   }
 });
-
 export default router;

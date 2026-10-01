@@ -601,3 +601,40 @@ html {
     scroll-margin-top: 82px;
   }
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0 1000px #0a1c29 inset;
+  box-shadow: 0 0 0 1000px #0a1c29 inset;
+  caret-color: #f39a12;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* =========================================================
+   AUTHENTICATION FORM — DARK INPUT OVERRIDE
+   ========================================================= */
+
+.auth-input,
+.auth-input:focus,
+.auth-input:hover {
+  color: #ffffff !important;
+  caret-color: #f39a12 !important;
+  background-color: #0a1c29 !important;
+}
+
+.auth-input::placeholder {
+  color: #7f949f !important;
+  opacity: 1 !important;
+}
+
+/* Chrome autofill */
+.auth-input:-webkit-autofill,
+.auth-input:-webkit-autofill:hover,
+.auth-input:-webkit-autofill:focus,
+.auth-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0 1000px #0a1c29 inset !important;
+  box-shadow: 0 0 0 1000px #0a1c29 inset !important;
+  caret-color: #f39a12 !important;
+}

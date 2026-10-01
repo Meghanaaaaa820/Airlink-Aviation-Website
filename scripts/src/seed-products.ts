@@ -39,25 +39,53 @@ const products = [
     applications: ["Aircraft systems", "Aerospace and defense"],
     specifications: [],
   },
-  {
-    name: "Radio Simulators",
-    slug: "radio-simulators",
-    category: "Simulation & Training",
-    shortDescription:
-      "Radio simulation systems designed for integrated training and simulation applications.",
-    image: "",
-    eyebrow: "Simulation",
-    featured: true,
-    description:
-      "Radio simulator solutions for aerospace and defense training and simulation environments.",
-    features: [
-      "Radio simulation",
-      "Integrated training applications",
-      "Designed for aerospace and defense environments",
-    ],
-    applications: ["Training systems", "Simulation systems"],
-    specifications: [],
-  },
+  
+   {
+  name: "Radio Simulators & Boards",
+
+  slug: "radio-simulators",
+
+  category: "Simulation & Training",
+
+  shortDescription:
+    "Hardware platforms designed to simulate and route RF signals between multiple radios or communication ports for integrated simulation and test environments.",
+
+  image: "",
+
+  eyebrow: "Radio Simulation",
+
+  featured: true,
+
+  description:
+    "Radio Simulator Boards are hardware platforms designed to simulate and route RF signals between multiple radios or communication ports. The matrix configuration determines how multiple Tx/Rx ports and antenna paths or radios can be interconnected.",
+
+  features: [
+    "6 × 6 channel radio simulator",
+    "4 × 4 channel radio simulator",
+    "MIL-grade circular connectors",
+    "10 TOS station configuration",
+    "10 IOS station configuration",
+    "Cross-talk with PTT",
+    "Radio simulation and signal routing",
+  ],
+
+  applications: [
+    "Radio simulation",
+    "Training systems",
+    "Communication system testing",
+    "Aerospace applications",
+    "Defence applications",
+  ],
+
+  specifications: [
+    "6 × 6 channel configuration",
+    "4 × 4 channel configuration",
+    "MIL-grade circular connector",
+    "10 TOS station",
+    "10 IOS station",
+    "Cross-talk with PTT",
+  ],
+},
   {
     name: "RF Cable Assemblies",
     slug: "rf-cable-assemblies",

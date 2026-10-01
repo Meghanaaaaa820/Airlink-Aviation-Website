@@ -50,3 +50,7 @@ Thumbs.db
 
 # Local secret files
 api key for resend email.txt
+artifacts/api-server/.env
+
+# Frontend local environment
+artifacts/airlink-aviation/.env.local

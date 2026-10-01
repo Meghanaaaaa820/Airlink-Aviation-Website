@@ -20,6 +20,8 @@ import {
   useLocation,
   Router as WouterRouter,
 } from 'wouter';
+import Login from "@/pages/login";
+import { supabase } from "@/lib/supabase";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,13 @@ const fallbackSummary = { productCount: 0, capabilityCount: 0, supportLabel: 'Te
 function SiteHeader() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
+  const [, navigate] = useLocation();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setOpen(false);
+    navigate("/login");
+  };
 
   const links = [
     ["Home", "/"],
@@ -40,7 +49,7 @@ function SiteHeader() {
     (href === "/products" && location.startsWith("/products/"));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#c9d2d1] bg-[#f5f2e9]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-[#c9d2d1] bg-[#071724]/95 backdrop-blur-md">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:px-8 lg:px-10">
 
         {/* LOGO */}
@@ -65,9 +74,9 @@ function SiteHeader() {
             <Link
               key={href}
               href={href}
-              className={`mono-font relative py-2 text-[10px] font-medium uppercase tracking-[.14em] transition-colors duration-200 ${isActive(href)
-                  ? "text-[#bd7224]"
-                  : "text-[#193b4b] hover:text-[#bd7224]"
+              className={`mono-font relative py-2 text-[12px] font-medium uppercase tracking-[.14em] transition-colors duration-200 ${isActive(href)
+                  ? "text-[#f39a12]"
+                  : "text-[#aebfca] hover:text-[#f39a12]"
                 }`}
               data-testid={`link-nav-${label.toLowerCase()}`}
             >
@@ -89,6 +98,13 @@ function SiteHeader() {
           <span>Request an Enquiry</span>
           <ArrowRight size={13} />
         </Link>
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="hidden min-h-[44px] items-center justify-center border border-[#6f8796] px-4 py-3 mono-font text-[9px] font-medium uppercase tracking-[.15em] text-[#eef3f5] transition-all duration-200 hover:border-[#f39a12] hover:text-[#f39a12] lg:flex"
+        >
+          Logout
+        </button>
 
         {/* MOBILE MENU */}
         <button
@@ -116,8 +132,8 @@ function SiteHeader() {
                 href={href}
                 onClick={() => setOpen(false)}
                 className={`flex items-center justify-between border-b border-[#d5dedb] px-2 py-4 mono-font text-[10px] uppercase tracking-[.14em] transition-colors ${isActive(href)
-                    ? "text-[#bd7224]"
-                    : "text-[#193b4b] hover:text-[#bd7224]"
+                  ? "text-[#bd7224]"
+                  : "text-[#193b4b] hover:text-[#bd7224]"
                   }`}
                 data-testid={`link-mobile-nav-${label.toLowerCase()}`}
               >
@@ -135,6 +151,13 @@ function SiteHeader() {
               Request an Enquiry
               <ArrowRight size={14} />
             </Link>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="mt-4 w-full border border-[#6f8796] px-4 py-3 text-left mono-font text-[9px] font-medium uppercase tracking-[.15em] text-[#eef3f5] transition-all duration-200 hover:border-[#f39a12] hover:text-[#f39a12]"
+            >
+              Logout
+            </button>
           </div>
         </nav>
       )}
@@ -461,22 +484,66 @@ function SiteFooter() {
   );
 }
 
-function Layout({ children }: { children: ReactNode }) { return <div className="noise min-h-[100dvh] bg-[#f5f2e9]"><SiteHeader />{children}<SiteFooter /></div>; }
-function PageIntro({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) { return <section className="site-grid border-b border-[#cad4d1] px-5 pb-14 pt-16 md:px-10 md:pb-20 md:pt-24"><div className="mx-auto max-w-[1440px]"><p className="line-marker mono-font mb-7 ml-4 text-[10px] uppercase tracking-[.2em] text-[#bd7224]">{eyebrow}</p><h1 className="display-font max-w-4xl text-5xl font-semibold leading-[.98] tracking-[-.055em] text-[#193b4b] md:text-7xl">{title}</h1>{children && <div className="mt-7 max-w-xl text-base leading-7 text-[#587177]">{children}</div>}</div></section>; }
+function Layout({ children }: { children: ReactNode }) {
+  return (
+    <div className="noise min-h-[100dvh] bg-[#061522] text-[#eef3f5]">
+      <SiteHeader />
+      {children}
+      <SiteFooter />
+    </div>
+  );
+}
+function PageIntro({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children?: ReactNode;
+}) {
+  return (
+    <section className="border-b border-[#234052] bg-[#081923] px-5 pb-14 pt-16 md:px-10 md:pb-20 md:pt-24">
+      <div className="mx-auto max-w-[1440px]">
+
+        <p className="line-marker mono-font mb-7 ml-4 text-[10px] uppercase tracking-[.2em] text-[#f39a12]">
+          {eyebrow}
+        </p>
+
+        <h1 className="display-font max-w-4xl text-5xl font-semibold leading-[.98] tracking-[-.055em] text-[#eef3f5] md:text-7xl">
+          {title}
+        </h1>
+
+        {children && (
+          <div className="mt-7 max-w-xl text-base leading-7 text-[#aebfca]">
+            {children}
+          </div>
+        )}
+
+      </div>
+    </section>
+  );
+}
 function LoadingBlock({ label = 'Loading technical content' }: { label?: string }) { return <div className="space-y-4" data-testid="status-loading"><div className="h-4 w-28 animate-pulse bg-[#dbe2dc]" /><div className="h-28 w-full animate-pulse bg-[#e8ebe4]" /><p className="mono-font text-[10px] uppercase tracking-[.15em] text-[#738b8d]">{label}</p></div>; }
 function ErrorBlock({ retry, label = 'We could not load this content.' }: { retry?: () => void; label?: string }) { return <div className="border border-[#d3a18c] bg-[#fbf3ed] p-7" data-testid="status-error"><CircleAlert className="mb-4 text-[#ad5b43]" size={22} /><p className="mb-5 text-sm text-[#704b43]">{label}</p>{retry && <button onClick={retry} type="button" className="border border-[#ad5b43] px-4 py-2 mono-font text-[10px] uppercase tracking-[.14em] text-[#704b43]" data-testid="button-retry">Try again</button>}</div>; }
 function EmptyBlock({ label }: { label: string }) { return <div className="border border-dashed border-[#b7c6c2] p-10 text-center" data-testid="status-empty"><p className="mono-font text-[10px] uppercase tracking-[.15em] text-[#738b8d]">{label}</p></div>; }
 function SectionKicker({ children }: { children: ReactNode }) { return <p className="mono-font text-[10px] uppercase tracking-[.2em] text-[#bd7224]">{children}</p>; }
 
 function InstrumentPanel({ summary }: { summary: typeof fallbackSummary }) {
-  return <div className="relative min-h-[370px] overflow-hidden bg-[#183545] p-7 text-[#d6e5df] md:min-h-[450px] md:p-10">
-    <img src="/images/about.png" alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-[.13] mix-blend-screen" /><div className="blueprint-grid absolute inset-0 opacity-80" /><div className="relative z-10 flex h-full min-h-[315px] flex-col justify-between">
-      <div className="flex items-start justify-between"><span className="mono-font text-[9px] uppercase tracking-[.18em] text-[#91b8b6]">AL-01 / System overview</span><span className="flex items-center gap-2 mono-font text-[9px] uppercase tracking-[.14em] text-[#d78b2e]"><i className="size-2 rounded-full bg-[#d78b2e]" /> Live catalogue</span></div>
-      <div className="relative mx-auto w-full max-w-[430px]"><div className="absolute left-[10%] top-1/2 h-px w-[80%] bg-[#8db4b1]/50" /><div className="absolute left-1/2 top-[10%] h-[80%] w-px bg-[#8db4b1]/50" /><div className="relative mx-auto grid aspect-square w-[64%] place-items-center rounded-full border border-[#8db4b1]/70"><div className="grid aspect-square w-[76%] place-items-center rounded-full border border-dashed border-[#8db4b1]/80"><div className="grid aspect-square w-[66%] place-items-center rounded-full border-2 border-[#d78b2e]"><Plane className="rotate-45 text-[#e2b168]" size={40} strokeWidth={1} /></div></div></div><span className="absolute -right-1 top-[15%] mono-font text-[8px] text-[#91b8b6]">01 / MISSION</span><span className="absolute -left-4 bottom-[13%] mono-font text-[8px] text-[#91b8b6]">02 / SYSTEM</span></div>
-      <div className="flex items-end justify-between border-t border-[#789b9c]/40 pt-4"><span className="mono-font text-[9px] uppercase tracking-[.15em] text-[#91b8b6]">Airlink technical index</span><span className="display-font text-2xl text-[#e5b15f]">{summary.productCount || '—'}<sup className="ml-1 text-xs">families</sup></span></div>
+  return (
+    <div className="relative min-h-[520px] overflow-hidden md:min-h-[650px]">
+      <img
+        src="/hero-hanger.png"
+        alt="Aircraft inside an aerospace hangar"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#061522]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#061522]/35 via-transparent to-transparent" />
     </div>
-  </div>;
+  );
 }
+
 
 const productImageBySlug: Record<string, string> = {
   'aircraft-hmi-control-panels': '/images/products/aircraft-hmi-control-panels.png',
@@ -505,34 +572,21 @@ function ProductVisual({
   return (
     <div
       className={`group relative overflow-hidden bg-[#dce4df] ${large
-          ? "min-h-[340px] md:min-h-[550px]"
-          : card
-            ? "h-[210px] md:h-[220px]"
-            : "aspect-[1.1]"
+        ? "min-h-[340px] md:min-h-[550px]"
+        : card
+          ? "h-[210px] md:h-[220px]"
+          : "aspect-[1.1]"
         } site-grid`}
     >
-      <div className="absolute inset-0 grid place-items-center">
-        <div
-          className={`relative grid aspect-square ${large ? "w-[58%]" : card ? "w-[48%]" : "w-[55%]"
-            } place-items-center rounded-full border border-[#789b9c]`}
-        >
-          <div className="grid aspect-square w-[72%] place-items-center rounded-full border border-dashed border-[#789b9c]">
-            <div className="grid aspect-square w-[63%] place-items-center rounded-full border-2 border-[#d78b2e]">
-              <Target
-                className="text-[#193b4b]"
-                size={large ? 54 : card ? 28 : 34}
-                strokeWidth={1}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
       {image && (
         <img
           src={image}
           alt={product.name}
-          className={`absolute inset-0 h-full w-full object-contain mix-blend-multiply opacity-95 transition-transform duration-700 group-hover:scale-[1.04] ${large ? "p-8 md:p-12" : card ? "p-5 md:p-6" : "p-5 md:p-8"
+          className={`absolute inset-0 h-full w-full object-contain mix-blend-multiply opacity-95 transition-transform duration-700 group-hover:scale-[1.04] ${large
+            ? "p-8 md:p-12"
+            : card
+              ? "p-5 md:p-6"
+              : "p-5 md:p-8"
             }`}
           onError={(event) => {
             event.currentTarget.style.display = "none";
@@ -541,16 +595,6 @@ function ProductVisual({
       )}
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#dce4df]/45 via-transparent to-white/10" />
-
-      {!large && (
-        <span className="absolute left-4 top-4 mono-font text-[9px] uppercase tracking-[.15em] text-[#193b4b]">
-          {product.category}
-        </span>
-      )}
-
-      <span className="absolute bottom-4 right-4 mono-font text-[9px] text-[#617d80]">
-        FIG. {String(product.id).padStart(2, "0")}
-      </span>
     </div>
   );
 }
@@ -560,101 +604,512 @@ function Home() {
   const productsQuery = useGetProducts({ featured: true });
   const summary = summaryQuery.data ?? fallbackSummary;
   const products = productsQuery.data ?? [];
-  return <Layout><main>
-    <section className="bg-[#f5f2e9] px-5 pb-16 pt-14 md:px-10 md:pb-24 md:pt-24"><div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end"><div className="animate-rise"><SectionKicker>Airlink Aviation / Engineering partner</SectionKicker><h1 className="display-font mt-7 max-w-3xl text-[3.6rem] font-semibold leading-[.91] tracking-[-.07em] text-[#193b4b] md:text-[6.7rem]">Built for the<br /><span className="text-[#bd7224]">mission</span> ahead.</h1><p className="mt-8 max-w-lg text-lg leading-8 text-[#587177]">Technical systems and product families for teams who cannot afford uncertainty in the air, at sea, or on the ground.</p><div className="mt-9 flex flex-wrap gap-3"><Link href="/products" className="inline-flex items-center gap-3 bg-[#193b4b] px-5 py-4 mono-font text-[10px] uppercase tracking-[.15em] text-[#f5f2e9] hover:bg-[#285665]" data-testid="link-hero-products">Explore product families <ArrowRight size={15} /></Link><Link href="/contact" className="inline-flex items-center gap-3 border border-[#9db1ae] px-5 py-4 mono-font text-[10px] uppercase tracking-[.15em] text-[#193b4b] hover:border-[#193b4b]" data-testid="link-hero-contact">Talk to engineering <MoveUpRight size={15} /></Link></div></div><div className="animate-rise delay-2"><InstrumentPanel summary={summary} /></div></div></section>
-    <section className="border-y border-[#cad4d1] bg-[#e7eee8] px-5 py-10 md:px-10"><div className="mx-auto grid max-w-[1440px] gap-7 md:grid-cols-4">{[['Product families', summary.productCount], ['Capability areas', summary.capabilityCount], ['Support', summary.supportLabel], ['Quality focus', summary.qualityLabel]].map(([label, value], i) => <div key={String(label)} className={`border-[#b8cac5] ${i ? 'md:border-l md:pl-7' : ''}`}><p className="mono-font text-[9px] uppercase tracking-[.17em] text-[#718a8b]">{label}</p><p className={`mt-3 ${i > 1 ? 'text-base' : 'display-font text-4xl'} font-semibold text-[#193b4b]`} data-testid={`text-summary-${i}`}>{value || '—'}</p></div>)}</div></section>
-    <section className="px-5 py-20 md:px-10 md:py-24">
-      <div className="mx-auto max-w-[1440px]">
 
-        {/* SECTION HEADER */}
-        <div className="mb-10 flex flex-col justify-between gap-6 md:mb-12 md:flex-row md:items-end">
-          <div>
-            <SectionKicker>Selected systems</SectionKicker>
+  return (
+    <Layout>
+      <main>
 
-            <h2 className="display-font mt-4 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#193b4b] md:text-6xl">
-              The right hardware
-              <br />
-              changes the equation.
-            </h2>
+        {/* =========================================================
+            HERO — DARK PROFESSIONAL
+            ========================================================= */}
+        <section className="relative isolate min-h-[760px] overflow-hidden bg-[#061522] text-[#f5f7f8]">
+
+          {/* FULL HERO AIRCRAFT IMAGE */}
+          <img
+            src="/hero-hanger.png"
+            alt="Aircraft inside an aerospace hangar"
+            className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          />
+
+          {/* DARK OVERLAYS */}
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,17,28,.97)_0%,rgba(4,17,28,.87)_28%,rgba(4,17,28,.48)_55%,rgba(4,17,28,.10)_100%)]" />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,17,28,.20)_0%,rgba(4,17,28,.05)_50%,rgba(4,17,28,.78)_100%)]" />
+
+          <div className="mx-auto flex min-h-[760px] max-w-[1440px] flex-col justify-between px-5 pb-0 pt-14 md:px-10 md:pt-20">
+
+            {/* HERO TEXT */}
+            <div className="max-w-2xl animate-rise">
+
+              <SectionKicker>
+                Airlink Aviation / Engineering partner
+              </SectionKicker>
+
+              <h1 className="display-font mt-7 max-w-3xl text-[3.6rem] font-semibold leading-[.91] tracking-[-.07em] text-[#f5f7f8] sm:text-6xl md:text-[6.7rem]">
+                Built for the
+                <br />
+                <span className="text-[#f39a12]">mission</span> ahead.
+              </h1>
+
+              <p className="mt-8 max-w-lg text-lg leading-8 text-[#d0dce3]">
+                Technical systems and product families for teams who cannot
+                afford uncertainty in the air, at sea, or on the ground.
+              </p>
+
+              <div className="mt-9 flex flex-wrap gap-3">
+
+                <Link
+                  href="/products"
+                  className="inline-flex min-h-[48px] items-center gap-3 bg-[#f39a12] px-5 py-4 mono-font text-[10px] font-medium uppercase tracking-[.15em] text-[#102333] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ffad2f]"
+                  data-testid="link-hero-products"
+                >
+                  Explore product families
+                  <ArrowRight size={15} />
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="inline-flex min-h-[48px] items-center gap-3 border border-[#a2b4c0] bg-[#071724]/45 px-5 py-4 mono-font text-[10px] font-medium uppercase tracking-[.15em] text-[#f5f7f8] transition-all duration-200 hover:border-[#f39a12] hover:text-[#f7b34b]"
+                  data-testid="link-hero-contact"
+                >
+                  Talk to engineering
+                  <MoveUpRight size={15} />
+                </Link>
+
+              </div>
+            </div>
+
+            {/* HERO FEATURE STRIP */}
+            <div className="mt-16 border-t border-[#91a6b4]/35 bg-[#061522]/30 backdrop-blur-[2px]">
+
+              <div className="grid md:grid-cols-5">
+
+                {[
+                  {
+                    title: "Aerospace",
+                    detail: "Flight proven solutions",
+                    icon: Plane,
+                  },
+                  {
+                    title: "Defence",
+                    detail: "Mission critical systems",
+                    icon: ShieldCheck,
+                  },
+                  {
+                    title: "Engineering",
+                    detail: "From concept to reality",
+                    icon: Target,
+                  },
+                  {
+                    title: "Simulation",
+                    detail: "Train. Test. Excel.",
+                    icon: Orbit,
+                  },
+                  {
+                    title: "Support",
+                    detail: "Through every mission",
+                    icon: Phone,
+                  },
+                ].map(({ title, detail, icon: Icon }, i) => (
+                  <div
+                    key={title}
+                    className={`flex items-center gap-4 px-5 py-5 md:flex-col md:items-center md:justify-center md:gap-3 md:py-7 md:text-center ${i
+                      ? "md:border-l md:border-[#91a6b4]/30"
+                      : ""
+                      }`}
+                  >
+                    <Icon
+                      aria-hidden="true"
+                      className="shrink-0 text-[#eef3f5]"
+                      size={26}
+                      strokeWidth={1.35}
+                    />
+
+                    <div>
+                      <h2 className="display-font text-base font-medium text-[#f4f6f7]">
+                        {title}
+                      </h2>
+
+                      <p className="mt-1 text-[11px] leading-5 text-[#afc0cb]">
+                        {detail}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+
+              </div>
+            </div>
+
           </div>
+        </section>
 
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 self-start border-b border-[#bd7224] pb-2 mono-font text-[10px] font-medium uppercase tracking-[.15em] text-[#193b4b] transition-colors hover:text-[#bd7224]"
-            data-testid="link-featured-all"
-          >
-            View all products
-            <ArrowRight size={14} />
-          </Link>
-        </div>
 
-        {/* PRODUCT GRID */}
-        {productsQuery.isLoading ? (
-          <LoadingBlock />
-        ) : productsQuery.isError ? (
-          <ErrorBlock retry={() => productsQuery.refetch()} />
-        ) : products.length === 0 ? (
-          <EmptyBlock label="Featured product families are not yet published." />
-        ) : (
-          <div className="grid gap-3 md:grid-cols-2">
+        {/* =========================================================
+            SUMMARY STRIP
+            ========================================================= */}
+        <section className="border-y border-[#234052] bg-[#091d2c] px-5 py-8 text-[#f3f6f7] md:px-10 md:py-0">
 
-            {products.slice(0, 4).map((product, i) => (
-              <Link
-                href={`/products/${product.slug}`}
-                key={product.id}
-                className="group grid min-h-[270px] overflow-hidden border border-[#c7d2ce] bg-[#f9f8f2] transition-all duration-300 hover:-translate-y-1 hover:border-[#9db1ae] hover:shadow-[0_12px_30px_rgba(21,43,60,0.07)] md:grid-cols-[1fr_1fr]"
-                data-testid={`card-featured-product-${product.id}`}
+          <div className="mx-auto grid max-w-[1440px] gap-7 md:grid-cols-4">
+
+            {[
+              ["Product families", summary.productCount],
+              ["Capability areas", summary.capabilityCount],
+              ["Support", summary.supportLabel],
+              ["Quality focus", summary.qualityLabel],
+            ].map(([label, value], i) => (
+              <div
+                key={String(label)}
+                className={`border-[#234052] py-2 ${i ? "md:border-l md:pl-7" : ""
+                  }`}
               >
 
-                {/* PRODUCT IMAGE */}
-                <div className="h-[230px] md:h-full">
-                  <ProductVisual product={product} />
-                </div>
+                <p className="mono-font text-[9px] uppercase tracking-[.17em] text-[#8faab8]">
+                  {label}
+                </p>
 
-                {/* PRODUCT INFORMATION */}
-                <div className="flex min-h-[230px] flex-col justify-between p-5 md:min-h-0 md:p-7">
+                <p
+                  className={`mt-3 ${i > 1
+                    ? "text-base"
+                    : "display-font text-4xl"
+                    } font-semibold text-[#f3f6f7]`}
+                  data-testid={`text-summary-${i}`}
+                >
+                  {value || "—"}
+                </p>
 
-                  <div>
-                    <div className="flex items-center justify-between gap-4">
-                      <p className="mono-font text-[9px] font-medium uppercase tracking-[.16em] text-[#bd7224]">
-                        {product.eyebrow}
-                      </p>
-
-                      <span className="mono-font text-[8px] tracking-[.12em] text-[#718a8b]">
-                        FIG. {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    <h3 className="display-font mt-3 text-xl font-semibold leading-[1.12] tracking-[-.04em] text-[#193b4b] transition-colors duration-200 group-hover:text-[#bd7224] md:text-2xl">
-                      {product.name}
-                    </h3>
-
-                    <p className="mt-4 max-w-sm text-[13px] leading-6 text-[#637b7c]">
-                      {product.shortDescription}
-                    </p>
-                  </div>
-
-                  {/* VIEW SYSTEM */}
-                  <div className="mt-6 border-t border-[#d7dfd9] pt-4">
-                    <span className="inline-flex items-center gap-2 mono-font text-[9px] font-medium uppercase tracking-[.15em] text-[#193b4b] transition-all duration-200 group-hover:gap-3 group-hover:text-[#bd7224]">
-                      View system
-                      <ArrowRight size={14} />
-                    </span>
-                  </div>
-
-                </div>
-              </Link>
+              </div>
             ))}
 
           </div>
-        )}
-      </div>
-    </section>
-    <section className="blueprint-grid px-5 py-20 text-[#e6eee8] md:px-10 md:py-28"><div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-[.8fr_1.2fr] md:items-end"><div><SectionKicker>01 / The Airlink approach</SectionKicker><h2 className="display-font mt-5 max-w-lg text-4xl font-semibold leading-tight tracking-[-.05em] md:text-6xl">Calm under<br />technical pressure.</h2></div><div className="grid gap-6 border-t border-[#789b9c]/50 pt-6 md:grid-cols-3"><div><ShieldCheck className="mb-5 text-[#e2ac5a]" size={25} strokeWidth={1.5} /><h3 className="display-font text-xl">Verified thinking</h3><p className="mt-3 text-sm leading-6 text-[#abc5c1]">A practical catalogue built around considered products, clear information, and honest technical boundaries.</p></div><div><Target className="mb-5 text-[#e2ac5a]" size={25} strokeWidth={1.5} /><h3 className="display-font text-xl">Mission context</h3><p className="mt-3 text-sm leading-6 text-[#abc5c1]">We start with the operating requirement, not a shelf of disconnected parts.</p></div><div><Phone className="mb-5 text-[#e2ac5a]" size={25} strokeWidth={1.5} /><h3 className="display-font text-xl">Human support</h3><p className="mt-3 text-sm leading-6 text-[#abc5c1]">When the requirement is specific, a serious conversation is only a few lines away.</p></div></div></div></section>
-    <section className="px-5 py-20 md:px-10 md:py-28"><div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-[1.1fr_.9fr] md:items-end"><div><SectionKicker>02 / Start with the requirement</SectionKicker><h2 className="display-font mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#193b4b] md:text-6xl">No theatre.<br />Just a useful next step.</h2></div><div><p className="text-base leading-7 text-[#587177]">Whether you are qualifying a product family or shaping a new technical requirement, give us the working context. We will come back with a clear route forward.</p><Link href="/contact" className="mt-7 inline-flex items-center gap-3 bg-[#d78b2e] px-5 py-4 mono-font text-[10px] uppercase tracking-[.15em] text-[#193b4b]" data-testid="link-home-enquiry">Make an enquiry <ArrowRight size={15} /></Link></div></div></section>
-  </main></Layout>;
-}
+        </section>
 
+
+        {/* =========================================================
+            FEATURED CAPABILITY — CABLE HARNESS SOLUTIONS
+            ========================================================= */}
+        <section className="bg-[#061522] px-5 py-16 md:px-10 md:py-20">
+
+          <div className="mx-auto max-w-[1440px]">
+
+            <Link
+              href="/capabilities"
+              className="group relative block overflow-hidden border border-[#d78b2e]/70 bg-[#0b2231] transition-all duration-300 hover:border-[#f39a12] hover:-translate-y-0.5"
+              data-testid="card-cable-harness-capability"
+            >
+
+              {/* TECHNICAL BACKGROUND */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute left-[8%] top-[20%] h-px w-[84%] bg-[#6d8795]/40" />
+                <div className="absolute left-[8%] top-[52%] h-px w-[72%] bg-[#6d8795]/25" />
+                <div className="absolute left-[15%] top-[15%] h-[70%] w-px bg-[#6d8795]/25" />
+                <div className="absolute right-[18%] top-[10%] h-[80%] w-px bg-[#6d8795]/20" />
+                <div className="absolute right-[8%] top-[32%] h-[28%] w-[28%] rounded-full border border-[#d78b2e]/30" />
+                <div className="absolute right-[12%] top-[38%] h-[16%] w-[20%] rounded-full border border-dashed border-[#d78b2e]/25" />
+              </div>
+
+              <div className="relative z-10 grid gap-10 p-7 md:grid-cols-[1.15fr_.85fr] md:p-12">
+
+                {/* LEFT */}
+                <div>
+
+                  <div className="flex items-center gap-3">
+                    <span className="h-px w-10 bg-[#f39a12]" />
+                    <span className="mono-font text-[10px] uppercase tracking-[.2em] text-[#f39a12]">
+                      Core capability / 03
+                    </span>
+                  </div>
+
+                  <h2 className="display-font mt-6 max-w-3xl text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#eef3f5] md:text-6xl">
+                    Precision wiring &
+                    <br />
+                    <span className="text-[#f39a12]">
+                      cable harness solutions.
+                    </span>
+                  </h2>
+
+                  <p className="mt-6 max-w-2xl text-base leading-7 text-[#aec0cb] md:text-lg">
+                    Precision wiring and cable harness solutions for demanding
+                    aerospace and defence applications.
+                  </p>
+
+                  <div className="mt-8 inline-flex items-center gap-3 mono-font text-[10px] font-medium uppercase tracking-[.16em] text-[#eef3f5]">
+                    Explore cable harness capability
+                    <ArrowRight
+                      size={15}
+                      className="transition-transform duration-200 group-hover:translate-x-1"
+                    />
+                  </div>
+
+                </div>
+
+                {/* RIGHT — TECHNICAL FEATURE */}
+                <div className="relative flex min-h-[220px] items-center justify-center border-l border-[#234052] md:min-h-[280px]">
+
+                  <div className="relative h-40 w-full max-w-[390px]">
+
+                    {/* HARNESS ROUTES */}
+                    <div className="absolute left-[8%] top-1/2 h-1 w-[84%] rounded-full bg-[#91a6b4]/45" />
+                    <div className="absolute left-[17%] top-[43%] h-1 w-[58%] rounded-full bg-[#d78b2e]/70" />
+
+                    {/* CONNECTOR ENDS */}
+                    <div className="absolute left-[4%] top-[39%] h-7 w-12 border border-[#a9beca] bg-[#152f3e]" />
+                    <div className="absolute right-[4%] top-[39%] h-7 w-12 border border-[#a9beca] bg-[#152f3e]" />
+
+                    {/* NODE DETAILS */}
+                    <div className="absolute left-[26%] top-[28%] h-9 w-9 rounded-full border border-[#a9beca] bg-[#0d2433]" />
+                    <div className="absolute left-[43%] top-[54%] h-7 w-7 rounded-full border border-[#f39a12] bg-[#0d2433]" />
+                    <div className="absolute right-[28%] top-[33%] h-8 w-8 rounded-full border border-[#a9beca] bg-[#0d2433]" />
+
+                    <span className="absolute bottom-0 left-0 mono-font text-[8px] uppercase tracking-[.14em] text-[#7f99a8]">
+                      Harness routing
+                    </span>
+
+                    <span className="absolute bottom-0 right-0 mono-font text-[8px] uppercase tracking-[.14em] text-[#f39a12]">
+                      Airlink / aerospace
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </Link>
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            SELECTED SYSTEMS
+            ========================================================= */}
+        <section className="bg-[#081923] px-5 py-20 text-[#eef3f5] md:px-10 md:py-24">
+
+          <div className="mx-auto max-w-[1440px]">
+
+            <div className="mb-10 flex flex-col justify-between gap-6 md:mb-12 md:flex-row md:items-end">
+
+              <div>
+
+                <SectionKicker>
+                  Selected systems
+                </SectionKicker>
+
+                <h2 className="display-font mt-4 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#eef3f5] md:text-6xl">
+                  The right hardware
+                  <br />
+                  changes the equation.
+                </h2>
+
+              </div>
+
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 self-start border-b border-[#bd7224] pb-2 mono-font text-[10px] font-medium uppercase tracking-[.15em] text-[#eef3f5] transition-colors hover:text-[#bd7224]"
+                data-testid="link-featured-all"
+              >
+                View all products
+                <ArrowRight size={14} />
+              </Link>
+
+            </div>
+
+
+            {productsQuery.isLoading ? (
+
+              <LoadingBlock />
+
+            ) : productsQuery.isError ? (
+
+              <ErrorBlock retry={() => productsQuery.refetch()} />
+
+            ) : products.length === 0 ? (
+
+              <EmptyBlock label="Featured product families are not yet published." />
+
+            ) : (
+
+              <div className="grid gap-3 md:grid-cols-2">
+
+                {products.slice(0, 4).map((product, i) => (
+
+                  <Link
+                    href={`/products/${product.slug}`}
+                    key={product.id}
+                    className="group grid min-h-[270px] overflow-hidden border border-[#234052] bg-[#0d2433] transition-all duration-300 hover:-translate-y-1 hover:border-[#557587] hover:shadow-[0_12px_30px_rgba(0,0,0,0.22)] md:grid-cols-[1fr_1fr]"
+                    data-testid={`card-featured-product-${product.id}`}
+                  >
+
+                    {/* PRODUCT IMAGE */}
+                    <div className="h-[230px] md:h-full">
+                      <ProductVisual product={product} />
+                    </div>
+
+                    {/* PRODUCT INFORMATION */}
+                    <div className="flex min-h-[230px] flex-col justify-between p-5 md:min-h-0 md:p-7">
+
+                      <div>
+
+                        <div className="flex items-center justify-between gap-4">
+
+                          <p className="mono-font text-[9px] font-medium uppercase tracking-[.16em] text-[#bd7224]">
+                            {product.eyebrow}
+                          </p>
+
+                          <span className="mono-font text-[8px] tracking-[.12em] text-[#7f99a8]">
+                            FIG. {String(i + 1).padStart(2, "0")}
+                          </span>
+
+                        </div>
+
+                        <h3 className="display-font mt-3 text-xl font-semibold leading-[1.12] tracking-[-.04em] text-[#eef3f5] transition-colors duration-200 group-hover:text-[#f3a02d] md:text-2xl">
+                          {product.name}
+                        </h3>
+
+                        <p className="mt-4 max-w-sm text-[13px] leading-6 text-[#a9bdc9]">
+                          {product.shortDescription}
+                        </p>
+
+                      </div>
+
+                      <div className="mt-6 border-t border-[#234052] pt-4">
+
+                        <span className="inline-flex items-center gap-2 mono-font text-[9px] font-medium uppercase tracking-[.15em] text-[#eef3f5] transition-all duration-200 group-hover:gap-3 group-hover:text-[#bd7224]">
+                          View system
+                          <ArrowRight size={14} />
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </Link>
+
+                ))}
+
+              </div>
+
+            )}
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            AIRLINK APPROACH
+            ========================================================= */}
+        <section className="blueprint-grid px-5 py-20 text-[#e6eee8] md:px-10 md:py-28">
+
+          <div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-[.8fr_1.2fr] md:items-end">
+
+            <div>
+
+              <SectionKicker>
+                01 / The Airlink approach
+              </SectionKicker>
+
+              <h2 className="display-font mt-5 max-w-lg text-4xl font-semibold leading-tight tracking-[-.05em] text-[#eef3f5] md:text-6xl">
+                Calm under
+                <br />
+                technical pressure.
+              </h2>
+
+            </div>
+
+            <div className="grid gap-6 border-t border-[#789b9c]/50 pt-6 md:grid-cols-3">
+
+              <div>
+                <ShieldCheck
+                  className="mb-5 text-[#e2ac5a]"
+                  size={25}
+                  strokeWidth={1.5}
+                />
+
+                <h3 className="display-font text-xl text-[#eef3f5]">
+                  Verified thinking
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-[#abc5c1]">
+                  A practical catalogue built around considered products,
+                  clear information, and honest technical boundaries.
+                </p>
+              </div>
+
+              <div>
+                <Target
+                  className="mb-5 text-[#e2ac5a]"
+                  size={25}
+                  strokeWidth={1.5}
+                />
+
+                <h3 className="display-font text-xl text-[#eef3f5]">
+                  Mission context
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-[#abc5c1]">
+                  We start with the operating requirement, not a shelf of
+                  disconnected parts.
+                </p>
+              </div>
+
+              <div>
+                <Phone
+                  className="mb-5 text-[#e2ac5a]"
+                  size={25}
+                  strokeWidth={1.5}
+                />
+
+                <h3 className="display-font text-xl text-[#eef3f5]">
+                  Human support
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-[#abc5c1]">
+                  When the requirement is specific, a serious conversation
+                  is only a few lines away.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            FINAL ENQUIRY CTA
+            ========================================================= */}
+        <section className="border-t border-[#234052] bg-[#061522] px-5 py-20 text-[#eef3f5] md:px-10 md:py-28">
+
+          <div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-[1.1fr_.9fr] md:items-end">
+
+            <div>
+
+              <SectionKicker>
+                02 / Start with the requirement
+              </SectionKicker>
+
+              <h2 className="display-font mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#eef3f5] md:text-6xl">
+                No theatre.
+                <br />
+                Just a useful next step.
+              </h2>
+
+            </div>
+
+            <div>
+
+              <p className="text-base leading-7 text-[#aebfca]">
+                Whether you are qualifying a product family or shaping a
+                new technical requirement, give us the working context.
+                We will come back with a clear route forward.
+              </p>
+
+              <Link
+                href="/contact"
+                className="mt-7 inline-flex items-center gap-3 bg-[#d78b2e] px-5 py-4 mono-font text-[10px] font-medium uppercase tracking-[.15em] text-[#102333] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#f0a03a]"
+                data-testid="link-home-enquiry"
+              >
+                Make an enquiry
+                <ArrowRight size={15} />
+              </Link>
+
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </Layout>
+  );
+}
 function ProductCard({ product }: { product: Product }) {
   return (
     <Link
@@ -683,12 +1138,12 @@ function ProductCard({ product }: { product: Product }) {
           {product.shortDescription}
         </p>
 
-        <div className="mt-5 flex items-center justify-between border-t border-[#d7dfd9] pt-4">
+        <div className="mt-5 flex items-center justify-between border-t border-[#234052] pt-4">
           <span className="mono-font text-[8px] uppercase tracking-[.13em] text-[#718a8b]">
             {product.category}
           </span>
 
-          <span className="flex items-center gap-2 mono-font text-[9px] font-medium uppercase tracking-[.13em] text-[#193b4b] transition-all duration-200 group-hover:gap-3 group-hover:text-[#bd7224]">
+          <span className="flex items-center gap-2 mono-font text-[9px] font-medium uppercase tracking-[.13em] text-[#eef3f5] transition-all duration-200 group-hover:gap-3 group-hover:text-[#bd7224]">
             View details
             <ArrowRight size={13} />
           </span>
@@ -705,7 +1160,7 @@ function Products() {
   const products = query.data ?? [];
   const categories = useMemo(() => ['All', ...Array.from(new Set(products.map((p) => p.category)))], [products]);
   const filtered = products.filter((p) => (category === 'All' || p.category === category) && (!search || `${p.name} ${p.shortDescription}`.toLowerCase().includes(search.toLowerCase())));
-  return <Layout><main><PageIntro eyebrow="Product catalogue / Published systems" title="Hardware with a job to do."><span>Explore the current Airlink product families. Filter by discipline, then open a system to see the information currently available.</span></PageIntro><section className="px-5 py-12 md:px-10 md:py-20"><div className="mx-auto max-w-[1440px]"><div className="mb-10 flex flex-col gap-5 border-b border-[#c7d2ce] pb-5 lg:flex-row lg:items-center lg:justify-between"><div className="flex flex-wrap gap-2">{categories.map((item) => <button key={item} type="button" onClick={() => setCategory(item)} className={`border px-4 py-2 mono-font text-[10px] uppercase tracking-[.13em] ${category === item ? 'border-[#193b4b] bg-[#193b4b] text-[#f5f2e9]' : 'border-[#b6c8c3] text-[#587177] hover:border-[#193b4b]'}`} data-testid={`button-filter-${item.toLowerCase().replace(/\s/g, '-')}`}>{item}</button>)}</div><label className="flex items-center gap-3 border-b border-[#9eb2ae] pb-2 lg:w-64"><span className="mono-font text-[9px] uppercase tracking-[.12em] text-[#718a8b]">Find</span><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Product or application" className="w-full bg-transparent text-sm outline-none placeholder:text-[#9eafad]" data-testid="input-product-search" /></label></div>{query.isLoading ? <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"><LoadingBlock /><LoadingBlock /><LoadingBlock /></div> : query.isError ? <ErrorBlock retry={() => query.refetch()} /> : filtered.length === 0 ? <EmptyBlock label={products.length ? 'No product families match that search.' : 'Product families are not yet published.'} /> : <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filtered.map((product) => <ProductCard key={product.id} product={product} />)}</div>}</div></section></main></Layout>;
+  return <Layout><main><PageIntro eyebrow="Product catalogue / Published systems" title="Hardware with a job to do."><span>Explore the current Airlink product families. Filter by discipline, then open a system to see the information currently available.</span></PageIntro><section className="px-5 py-12 md:px-10 md:py-20"><div className="mx-auto max-w-[1440px]"><div className="mb-10 flex flex-col gap-5 border-b border-[#c7d2ce] pb-5 lg:flex-row lg:items-center lg:justify-between"><div className="flex flex-wrap gap-2">{categories.map((item) => <button key={item} type="button" onClick={() => setCategory(item)} className={`border px-4 py-2 mono-font text-[10px] uppercase tracking-[.13em] ${category === item ? 'border-[#193b4b] bg-[#193b4b] text-[#f5f2e9]' : 'border-[#b6c8c3] text-[#c2d0da] hover:border-[#193b4b]'}`} data-testid={`button-filter-${item.toLowerCase().replace(/\s/g, '-')}`}>{item}</button>)}</div><label className="flex items-center gap-3 border-b border-[#9eb2ae] pb-2 lg:w-64"><span className="mono-font text-[9px] uppercase tracking-[.12em] text-[#718a8b]">Find</span><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Product or application" className="w-full bg-transparent text-sm outline-none placeholder:text-[#9eafad]" data-testid="input-product-search" /></label></div>{query.isLoading ? <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"><LoadingBlock /><LoadingBlock /><LoadingBlock /></div> : query.isError ? <ErrorBlock retry={() => query.refetch()} /> : filtered.length === 0 ? <EmptyBlock label={products.length ? 'No product families match that search.' : 'Product families are not yet published.'} /> : <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filtered.map((product) => <ProductCard key={product.id} product={product} />)}</div>}</div></section></main></Layout>;
 }
 
 function ProductDetailPage({ slug }: { slug: string }) {
@@ -724,12 +1179,14 @@ function Resources() {
   const visible = resources.filter((r) => category === 'All' || r.category === category);
   return <Layout><main><PageIntro eyebrow="Technical resources / Reference library" title="Information for the next decision."><span>Access the published guides, documents, and technical reference material available from Airlink.</span></PageIntro><section className="px-5 py-12 md:px-10 md:py-20"><div className="mx-auto max-w-[1100px]"><div className="mb-10 flex flex-wrap gap-2">{categories.map((item) => <button key={item} type="button" onClick={() => setCategory(item)} className={`border px-4 py-2 mono-font text-[10px] uppercase tracking-[.13em] ${category === item ? 'border-[#193b4b] bg-[#193b4b] text-[#f5f2e9]' : 'border-[#b6c8c3] text-[#587177]'}`} data-testid={`button-resource-filter-${item.toLowerCase().replace(/\s/g, '-')}`}>{item}</button>)}</div>{query.isLoading ? <LoadingBlock label="Indexing resource library" /> : query.isError ? <ErrorBlock retry={() => query.refetch()} /> : visible.length === 0 ? <EmptyBlock label="Technical resources are not yet published." /> : <div className="divide-y divide-[#c7d2ce] border-y border-[#c7d2ce]">{visible.map((resource) => <ResourceRow key={resource.id} resource={resource} />)}</div>}</div></section><section className="blueprint-grid px-5 py-16 text-[#e6eee8] md:px-10 md:py-20"><div className="mx-auto flex max-w-[1100px] flex-col justify-between gap-8 md:flex-row md:items-end"><div><SectionKicker>Resource request</SectionKicker><h2 className="display-font mt-4 max-w-xl text-4xl font-semibold tracking-[-.05em] md:text-5xl">Looking for something specific?</h2></div><Link href="/contact" className="inline-flex items-center gap-2 self-start border border-[#8eafad] px-5 py-4 mono-font text-[10px] uppercase tracking-[.15em] hover:bg-[#284f5d]" data-testid="link-resource-request">Ask engineering <ArrowRight size={14} /></Link></div></section></main></Layout>;
 }
-function ResourceRow({ resource }: { resource: Resource }) { const external = resource.href.startsWith('http'); return <div className="grid gap-5 py-7 md:grid-cols-[130px_1fr_auto] md:items-center"><div><p className="mono-font text-[9px] uppercase tracking-[.15em] text-[#bd7224]">{resource.type}</p><p className="mt-2 text-xs text-[#839796]">{resource.category}</p></div><div><h2 className="display-font text-2xl font-semibold tracking-[-.04em] text-[#193b4b]">{resource.title}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#637b7c]">{resource.description}</p></div>{external ? <a href={resource.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 mono-font text-[10px] uppercase tracking-[.13em] text-[#193b4b] underline decoration-[#bd7224] underline-offset-8" data-testid={`link-resource-${resource.id}`}>{resource.actionLabel} <MoveUpRight size={14} /></a> : <Link href={resource.href} className="inline-flex items-center gap-2 mono-font text-[10px] uppercase tracking-[.13em] text-[#193b4b] underline decoration-[#bd7224] underline-offset-8" data-testid={`link-resource-${resource.id}`}>{resource.actionLabel} <ArrowRight size={14} /></Link>}</div>; }
+function ResourceRow({ resource }: { resource: Resource }) { const external = resource.href.startsWith('http'); return <div className="grid gap-5 py-7 md:grid-cols-[130px_1fr_auto] md:items-center"><div><p className="mono-font text-[9px] uppercase tracking-[.15em] text-[#bd7224]">{resource.type}</p><p className="mt-2 text-xs text-[#839796]">{resource.category}</p></div><div><h2 className="display-font text-2xl font-semibold tracking-[-.04em] text-[#193b4b]">{resource.title}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#a9bdc9]">{resource.description}</p></div>{external ? <a href={resource.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 mono-font text-[10px] uppercase tracking-[.13em] text-[#193b4b] underline decoration-[#bd7224] underline-offset-8" data-testid={`link-resource-${resource.id}`}>{resource.actionLabel} <MoveUpRight size={14} /></a> : <Link href={resource.href} className="inline-flex items-center gap-2 mono-font text-[10px] uppercase tracking-[.13em] text-[#193b4b] underline decoration-[#bd7224] underline-offset-8" data-testid={`link-resource-${resource.id}`}>{resource.actionLabel} <ArrowRight size={14} /></Link>}</div>; }
 
 function About() {
   return (
     <Layout>
       <main>
+
+        {/* PAGE INTRO */}
         <PageIntro
           eyebrow="About Airlink / Who we are"
           title="Engineering technology for environments where reliability matters."
@@ -741,18 +1198,22 @@ function About() {
           </span>
         </PageIntro>
 
-        {/* WHO WE ARE */}
-        <section className="px-5 py-16 md:px-10 md:py-24">
+        {/* =========================================================
+            WHO WE ARE
+            ========================================================= */}
+        <section className="bg-[#061522] px-5 py-16 text-[#eef3f5] md:px-10 md:py-24">
           <div className="mx-auto grid max-w-[1200px] gap-12 md:grid-cols-[0.8fr_1.2fr]">
+
             <div>
               <SectionKicker>Who we are</SectionKicker>
 
-              <h2 className="display-font mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#193b4b] md:text-6xl">
+              <h2 className="display-font mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.05em] text-[#eef3f5] md:text-6xl">
                 Built for systems that cannot afford to compromise.
               </h2>
             </div>
 
-            <div className="space-y-6 text-base leading-8 text-[#587177]">
+            <div className="space-y-6 text-base leading-8 text-[#aebfca]">
+
               <p>
                 Airlink Aviation develops and supplies rugged electronic and
                 electromechanical solutions for aerospace and defence
@@ -771,32 +1232,39 @@ function About() {
                 that can support the mission.
               </p>
 
-              <div className="border-l-2 border-[#d78b2e] pl-6 text-xl leading-8 text-[#193b4b]">
+              <div className="border-l-2 border-[#f39a12] pl-6 text-xl leading-8 text-[#eef3f5]">
                 Engineering is not only about building a product. It is about
                 building confidence in the system around it.
               </div>
+
             </div>
           </div>
         </section>
 
-        {/* WHAT WE DO */}
-        <section className="site-grid border-y border-[#cad4d1] px-5 py-16 md:px-10 md:py-24">
+
+        {/* =========================================================
+            WHAT WE DO
+            ========================================================= */}
+        <section className="site-grid border-y border-[#234052] bg-[#081923] px-5 py-16 text-[#eef3f5] md:px-10 md:py-24">
+
           <div className="mx-auto max-w-[1200px]">
+
             <div className="max-w-2xl">
               <SectionKicker>What we do</SectionKicker>
 
-              <h2 className="display-font mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] text-[#193b4b] md:text-5xl">
+              <h2 className="display-font mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] text-[#eef3f5] md:text-5xl">
                 Technology across the mission-critical electronics chain.
               </h2>
 
-              <p className="mt-5 text-sm leading-7 text-[#637b7c]">
+              <p className="mt-5 text-sm leading-7 text-[#a9bdc9]">
                 From cockpit interfaces and rugged displays to wiring,
                 interconnects and simulation equipment, our product areas are
                 designed around demanding aerospace and defence environments.
               </p>
             </div>
 
-            <div className="mt-12 grid gap-px border border-[#c7d2ce] bg-[#c7d2ce] md:grid-cols-2">
+            <div className="mt-12 grid gap-px border border-[#234052] bg-[#234052] md:grid-cols-2">
+
               {[
                 [
                   "01",
@@ -831,76 +1299,104 @@ function About() {
               ].map(([number, title, text]) => (
                 <div
                   key={number}
-                  className="bg-[#f5f2e9] p-7 md:p-9"
+                  className="bg-[#0d2433] p-7 transition-colors duration-200 hover:bg-[#102d3e] md:p-9"
                 >
-                  <span className="mono-font text-[11px] tracking-[.15em] text-[#bd7224]">
+                  <span className="mono-font text-[11px] tracking-[.15em] text-[#f39a12]">
                     {number}
                   </span>
 
-                  <h3 className="display-font mt-5 text-2xl font-semibold tracking-[-.04em] text-[#193b4b]">
+                  <h3 className="display-font mt-5 text-2xl font-semibold tracking-[-.04em] text-[#eef3f5]">
                     {title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-[#637b7c]">
+                  <p className="mt-3 text-sm leading-6 text-[#a9bdc9]">
                     {text}
                   </p>
                 </div>
               ))}
+
             </div>
           </div>
         </section>
 
-        {/* WHERE WE WORK */}
-        <section className="px-5 py-16 md:px-10 md:py-24">
+
+        {/* =========================================================
+            WHERE WE WORK
+            ========================================================= */}
+        <section className="bg-[#061522] px-5 py-16 text-[#eef3f5] md:px-10 md:py-24">
+
           <div className="mx-auto max-w-[1200px]">
+
             <div className="grid gap-12 md:grid-cols-[1fr_1fr]">
+
               <div>
                 <SectionKicker>Where our technology fits</SectionKicker>
 
-                <h2 className="display-font mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] text-[#193b4b] md:text-5xl">
+                <h2 className="display-font mt-5 text-4xl font-semibold leading-tight tracking-[-.05em] text-[#eef3f5] md:text-5xl">
                   Designed around demanding environments.
                 </h2>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-3">
+
                 {[
-                  ["01", "Airborne", "Systems designed for demanding airborne applications."],
-                  ["02", "Naval", "Technology supporting challenging naval environments."],
-                  ["03", "Electronic Warfare", "Solutions for specialised electronic environments."],
+                  [
+                    "01",
+                    "Airborne",
+                    "Systems designed for demanding airborne applications.",
+                  ],
+                  [
+                    "02",
+                    "Naval",
+                    "Technology supporting challenging naval environments.",
+                  ],
+                  [
+                    "03",
+                    "Electronic Warfare",
+                    "Solutions for specialised electronic environments.",
+                  ],
                 ].map(([number, title, text]) => (
                   <div
                     key={number}
-                    className="border border-[#c7d2ce] p-6"
+                    className="border border-[#234052] bg-[#0d2433] p-6 transition-colors duration-200 hover:border-[#557587]"
                   >
-                    <span className="mono-font text-[10px] text-[#bd7224]">
+                    <span className="mono-font text-[10px] text-[#f39a12]">
                       {number}
                     </span>
 
-                    <h3 className="display-font mt-5 text-xl font-semibold text-[#193b4b]">
+                    <h3 className="display-font mt-5 text-xl font-semibold text-[#eef3f5]">
                       {title}
                     </h3>
 
-                    <p className="mt-3 text-xs leading-6 text-[#637b7c]">
+                    <p className="mt-3 text-xs leading-6 text-[#a9bdc9]">
                       {text}
                     </p>
                   </div>
                 ))}
+
               </div>
             </div>
           </div>
         </section>
 
-        {/* WHY AIRLINK */}
-        <section className="blueprint-grid px-5 py-16 text-[#e6eee8] md:px-10 md:py-24">
+
+        {/* =========================================================
+            WHY AIRLINK
+            ========================================================= */}
+        <section className="blueprint-grid border-y border-[#234052] px-5 py-16 text-[#e6eee8] md:px-10 md:py-24">
+
           <div className="mx-auto max-w-[1200px]">
+
             <SectionKicker>Why work with Airlink</SectionKicker>
 
             <div className="mt-5 grid gap-12 md:grid-cols-[0.9fr_1.1fr]">
-              <h2 className="display-font text-4xl font-semibold leading-tight tracking-[-.05em] md:text-6xl">
+
+              <h2 className="display-font text-4xl font-semibold leading-tight tracking-[-.05em] text-[#eef3f5] md:text-6xl">
                 From requirement to reliable technology.
               </h2>
 
               <div className="grid gap-8 sm:grid-cols-2">
+
                 {[
                   [
                     "Mission focus",
@@ -923,7 +1419,7 @@ function About() {
                     key={title}
                     className="border-t border-[#56777a] pt-5"
                   >
-                    <h3 className="display-font text-xl font-semibold">
+                    <h3 className="display-font text-xl font-semibold text-[#eef3f5]">
                       {title}
                     </h3>
 
@@ -932,17 +1428,24 @@ function About() {
                     </p>
                   </div>
                 ))}
+
               </div>
             </div>
           </div>
         </section>
 
-        {/* HOW WE WORK */}
-        <section className="px-5 py-16 md:px-10 md:py-24">
+
+        {/* =========================================================
+            HOW WE WORK
+            ========================================================= */}
+        <section className="bg-[#081923] px-5 py-16 text-[#eef3f5] md:px-10 md:py-24">
+
           <div className="mx-auto max-w-[1200px]">
+
             <SectionKicker>How we work</SectionKicker>
 
-            <div className="mt-10 grid gap-0 border-t border-[#c7d2ce] md:grid-cols-4">
+            <div className="mt-10 grid gap-0 border-t border-[#234052] md:grid-cols-4">
+
               {[
                 [
                   "01",
@@ -967,40 +1470,47 @@ function About() {
               ].map(([number, title, text]) => (
                 <div
                   key={number}
-                  className="border-b border-[#c7d2ce] py-8 md:border-r md:px-7 md:last:border-r-0"
+                  className="border-b border-[#234052] py-8 md:border-r md:px-7 md:last:border-r-0"
                 >
-                  <span className="mono-font text-sm text-[#bd7224]">
+                  <span className="mono-font text-sm text-[#f39a12]">
                     {number}
                   </span>
 
-                  <h3 className="display-font mt-5 text-2xl font-semibold text-[#193b4b]">
+                  <h3 className="display-font mt-5 text-2xl font-semibold text-[#eef3f5]">
                     {title}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-[#637b7c]">
+                  <p className="mt-3 text-sm leading-6 text-[#a9bdc9]">
                     {text}
                   </p>
                 </div>
               ))}
+
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="border-t border-[#c7d2ce] px-5 py-16 md:px-10 md:py-20">
+
+        {/* =========================================================
+            CTA
+            ========================================================= */}
+        <section className="border-t border-[#234052] bg-[#061522] px-5 py-16 text-[#eef3f5] md:px-10 md:py-20">
+
           <div className="mx-auto flex max-w-[1200px] flex-col justify-between gap-8 md:flex-row md:items-end">
+
             <div>
               <SectionKicker>Explore Airlink</SectionKicker>
 
-              <h2 className="display-font mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-[-.05em] text-[#193b4b] md:text-5xl">
+              <h2 className="display-font mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-[-.05em] text-[#eef3f5] md:text-5xl">
                 See the capabilities behind the technology.
               </h2>
             </div>
 
             <div className="flex flex-wrap gap-3">
+
               <Link
                 href="/capabilities"
-                className="inline-flex items-center gap-2 bg-[#193b4b] px-5 py-4 mono-font text-[10px] uppercase tracking-[.14em] text-[#f5f2e9]"
+                className="inline-flex items-center gap-2 bg-[#f39a12] px-5 py-4 mono-font text-[10px] font-medium uppercase tracking-[.14em] text-[#102333] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#ffad2f]"
                 data-testid="link-about-capabilities"
               >
                 Our capabilities
@@ -1009,15 +1519,18 @@ function About() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 border border-[#193b4b] px-5 py-4 mono-font text-[10px] uppercase tracking-[.14em] text-[#193b4b]"
+                className="inline-flex items-center gap-2 border border-[#6f8796] px-5 py-4 mono-font text-[10px] uppercase tracking-[.14em] text-[#eef3f5] transition-colors hover:border-[#f39a12] hover:text-[#f39a12]"
                 data-testid="link-about-contact"
               >
                 Talk to Airlink
                 <ArrowRight size={14} />
               </Link>
+
             </div>
+
           </div>
         </section>
+
       </main>
     </Layout>
   );
@@ -1351,25 +1864,101 @@ function Field({
     </label>
   );
 }
+function AuthGuard({ children }: { children: ReactNode }) {
+  const [, navigate] = useLocation();
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      if (!mounted) return;
+
+      if (!data.session) {
+        navigate("/login");
+        return;
+      }
+
+      setChecking(false);
+    };
+
+    checkSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return;
+
+      if (!session) {
+        navigate("/login");
+        return;
+      }
+
+      setChecking(false);
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
+
+  if (checking) {
+    return (
+      <main className="flex min-h-[100dvh] items-center justify-center bg-[#061522] text-[#eef3f5]">
+        <div className="text-center">
+          <p className="mono-font text-[10px] uppercase tracking-[.2em] text-[#f39a12]">
+            Airlink Aviation
+          </p>
+
+          <p className="mt-4 text-sm text-[#9fb1bb]">
+            Verifying secure access...
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  return <>{children}</>;
+}
+
 function Router() {
+  const [location] = useLocation();
+
   return (
-    // Keep a shared shell (sidebar, navbar) outside the boundary so it
-    // survives a page crash.
     <RoutedErrorBoundary>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/products" component={Products} />
-        <Route path="/products/:slug">{(params) => <ProductDetailPage slug={params.slug} />}</Route>
-        <Route path="/resources" component={Resources} />
-        <Route path="/about" component={About} />
-        <Route path="/capabilities" component={Capabilities} />
-        <Route path="/contact" component={Contact} />
-        <Route component={NotFound} />
-      </Switch>
+      {location === "/login" ? (
+        <Login />
+      ) : (
+        <AuthGuard>
+          <Switch>
+            <Route path="/" component={Home} />
+
+            <Route path="/products" component={Products} />
+
+            <Route path="/products/:slug">
+              {(params) => (
+                <ProductDetailPage slug={params.slug} />
+              )}
+            </Route>
+
+            <Route path="/resources" component={Resources} />
+
+            <Route path="/about" component={About} />
+
+            <Route path="/capabilities" component={Capabilities} />
+
+            <Route path="/contact" component={Contact} />
+
+            <Route component={NotFound} />
+          </Switch>
+        </AuthGuard>
+      )}
     </RoutedErrorBoundary>
   );
 }
-
 function RoutedErrorBoundary({ children }: { children: ReactNode }) {
   const [location] = useLocation();
   return <ErrorBoundary resetKey={location}>{children}</ErrorBoundary>;
