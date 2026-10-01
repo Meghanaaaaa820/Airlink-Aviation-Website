@@ -1,0 +1,873 @@
+AIRLINK AVIATION PVT LTD — EXISTING WEBSITE RENOVATION
+
+IMPORTANT:
+This is a RENOVATION and redesign of an EXISTING WEBSITE.
+
+DO NOT build a new website from scratch.
+DO NOT replace the existing project with a new template.
+DO NOT create a separate application.
+DO NOT discard the existing architecture.
+
+You are working on the EXISTING Airlink Aviation Pvt Ltd website that has been imported from the existing GitHub repository.
+
+Your first responsibility is to inspect and understand the existing codebase before making changes.
+
+==================================================
+1. CORE INSTRUCTION — PRESERVE THE EXISTING PROJECT
+==================================================
+
+This is an existing working website.
+
+Preserve the existing:
+- React application
+- Existing routes
+- Existing components where useful
+- Existing product architecture
+- Existing backend
+- Existing API functionality
+- Existing database integration
+- Existing enquiry functionality
+- Existing product detail functionality
+- Existing assets/images that are useful
+- Existing project structure where practical
+
+Do not unnecessarily rewrite the application architecture.
+
+Do not remove working backend/database functionality.
+
+Do not create duplicate pages or duplicate applications.
+
+Modify the existing files/components in place.
+
+Before making changes, inspect the existing project and understand:
+- frontend structure
+- routing
+- product data
+- backend
+- database
+- existing components
+- existing assets
+- existing product detail pages
+
+Then implement the renovation systematically.
+
+==================================================
+2. FINAL DESIGN THEME — MUST BE USED EVERYWHERE
+==================================================
+
+The FINAL website theme is:
+
+PREMIUM AEROSPACE CORPORATE
+
+This theme must be applied consistently across the ENTIRE website.
+
+Every page must look like it belongs to the same premium aerospace engineering company.
+
+The visual direction should be:
+
+- Premium
+- Clean
+- Sophisticated
+- Professional
+- Aerospace-focused
+- Engineering-focused
+- Corporate
+- Modern
+- Trustworthy
+- Spacious
+- High-quality
+
+Avoid making the website look like:
+- a generic SaaS website
+- an AI startup website
+- a gaming website
+- a futuristic dashboard
+- an overly military website
+- a generic template
+
+The website should feel like a serious aerospace/defence engineering and manufacturing company.
+
+==================================================
+3. FINAL COLOR DIRECTION
+==================================================
+
+Use a restrained corporate aerospace color palette.
+
+Primary:
+Deep Navy
+#071522
+
+Secondary:
+Aerospace Navy
+#0D2434
+
+Light:
+White
+#FFFFFF
+
+Soft background:
+#F3F5F4
+
+Supporting:
+Steel Grey
+#687780
+
+Accent:
+Airlink Orange
+#F39A12
+
+IMPORTANT:
+Orange must be used mainly as an accent.
+
+Do NOT make the whole website orange.
+
+Use orange for:
+- CTA buttons
+- active states
+- small highlights
+- important labels
+- selected navigation states
+- subtle visual accents
+
+Maintain a premium and restrained appearance.
+
+==================================================
+4. FINAL FONT — MUST BE CONSISTENT EVERYWHERE
+==================================================
+
+The selected font system is FINAL:
+
+HEADINGS:
+Manrope
+
+BODY / GENERAL TEXT:
+Inter
+
+Use the same typography system throughout the entire website.
+
+Do not randomly introduce other fonts.
+
+Manrope should be used consistently for:
+- Hero headings
+- Section headings
+- Product headings
+- Page titles
+- Major statements
+
+Inter should be used consistently for:
+- Paragraphs
+- Product descriptions
+- General information
+- Supporting text
+- Technical explanatory text
+- Navigation/supporting UI text where appropriate
+
+==================================================
+5. GENERAL TEXT SIZE
+==================================================
+
+For normal/general text, keep the font size around:
+
+12px
+
+IMPORTANT:
+This 12px requirement applies to NORMAL/GENERAL TEXT.
+
+It does NOT apply to:
+- Hero headings
+- Page headings
+- Section headings
+- Major titles
+- Important display typography
+
+Headings should have appropriate responsive sizes and hierarchy.
+
+Do not make normal text extremely small.
+
+Do not make normal text unnecessarily large.
+
+The goal is:
+MEDIUM
+CLEAN
+READABLE
+PROFESSIONAL
+
+Use responsive sizing where necessary.
+
+==================================================
+6. REMOVE LOGIN / LOGOUT / AUTHENTICATION UI
+==================================================
+
+There is NO need for Login or Logout at this stage.
+
+Remove the website authentication requirement.
+
+Remove:
+- Login page
+- Login navigation/button
+- Logout button
+- AuthGuard
+- Authentication redirects
+- Login-related UI
+- Authentication-dependent website access
+
+Visitors must be able to directly open the website.
+
+The user flow should simply be:
+
+Visitor
+→ Home
+→ About
+→ Capabilities
+→ Products
+→ Resources
+→ Contact
+
+IMPORTANT:
+Do not unnecessarily delete unrelated backend/database functionality.
+
+Only remove the website authentication requirement and related UI/guard logic.
+
+==================================================
+7. AIRLINK AVIATION PPT IS THE MAIN CONTENT SOURCE
+==================================================
+
+I have attached the official Airlink Aviation Pvt Ltd presentation to this task.
+
+USE THIS PPT AS THE PRIMARY SOURCE FOR COMPANY, PRODUCT, SERVICE AND TECHNICAL INFORMATION.
+
+Do not invent technical specifications.
+
+Do not make up product capabilities.
+
+Do not add unsupported claims.
+
+Use the terminology and information from the PPT.
+
+Extract and organize relevant information from the PPT into the existing website.
+
+Use the PPT content where appropriate on:
+
+- Home
+- About
+- Capabilities
+- Products
+- Product detail pages
+- Services/Solutions
+- Industries/Applications
+- Resources
+- Contact/enquiry context
+
+The PPT contains important information about:
+- Aerospace
+- Defence
+- UAV
+- EV
+- Naval/military applications
+- Cable and wire harness solutions
+- Radio simulators
+- RF cable solutions
+- Fiber optic solutions
+- Multifunctional displays
+- Control panels
+- System/panel integration
+- BOM sourcing
+- Built-to-Print
+- Built-to-Specification
+- Product development
+- Prototyping
+- Testing and qualification
+
+Use the attached PPT as the source for these details.
+
+==================================================
+8. CABLE & WIRE HARNESS MUST BE THE PRIMARY PRODUCT
+==================================================
+
+THIS IS EXTREMELY IMPORTANT.
+
+Airlink Aviation's primary/core product capability should be presented as:
+
+CABLE & WIRE HARNESS SOLUTIONS
+
+Cable Harnessing MUST appear FIRST and prominently.
+
+This requirement applies to:
+
+HOME PAGE
+PRODUCTS PAGE
+PRODUCT NAVIGATION/ORDER
+ABOUT PAGE
+CAPABILITIES PAGE
+RELEVANT PRODUCT SECTIONS
+
+Do not treat Cable Harnessing as just another product.
+
+It should clearly receive the strongest visual and content emphasis.
+
+==================================================
+9. HOME PAGE — CABLE HARNESS PRIORITY
+==================================================
+
+The Home page should prominently introduce Airlink's Cable & Wire Harness capability.
+
+Create a strong section near the beginning of the website:
+
+CABLE & WIRE HARNESS SOLUTIONS
+
+Include relevant information from the PPT such as:
+
+- In-house harness capability
+- Custom harnesses
+- OEM/make-specific harnesses
+- Standard MIL cables and connectors
+- EWIS
+- High-precision electromechanical systems
+- Mission-critical electronic control systems
+- RF interconnections
+- Flat cable interconnections
+- Rugged compact airborne systems
+
+Use the PPT as the source and only include claims supported by it.
+
+The Home page should make Cable & Wire Harness Solutions immediately visible and important.
+
+==================================================
+10. ABOUT PAGE — CABLE HARNESS EMPHASIS
+==================================================
+
+The About page must provide substantially more information about Airlink's Cable & Wire Harness capability.
+
+Position it as a major/core engineering capability of the company.
+
+Use the attached PPT to explain the company's:
+- In-house harness capability
+- Engineering capability
+- Custom solutions
+- Aerospace/defence applications
+- Mission-critical systems
+- Manufacturing/engineering approach
+
+Do not invent company history or certifications.
+
+Only use information supported by the PPT and existing website.
+
+==================================================
+11. PRODUCTS PAGE — CABLE HARNESS MUST BE #1
+==================================================
+
+The Products page must start with:
+
+01
+CABLE & WIRE HARNESS SOLUTIONS
+
+This MUST be the first and most prominent product/solution.
+
+Then organize the remaining products/solutions from the PPT logically.
+
+Possible structure based on the PPT:
+
+01 — Cable & Wire Harness Solutions
+02 — Radio Simulators & Boards
+03 — RF Cable Assemblies / RF Cable Solutions
+04 — Fiber Optic Cable Assemblies
+05 — Multifunctional Displays
+06 — Control Panels
+07 — System / Panel Integration
+08 — Other Assemblies & BOM Parts / Sourcing
+
+Preserve useful existing products where they are valid, but reorganize the presentation around the actual Airlink PPT information.
+
+Do not blindly delete existing products.
+
+Combine/rename/restructure only where appropriate.
+
+==================================================
+12. CABLE HARNESS PRODUCT DETAIL PAGE
+==================================================
+
+Create a strong, detailed Cable & Wire Harness Solutions page.
+
+It should include information supported by the PPT.
+
+Organize it clearly into sections such as:
+
+Overview
+Capabilities
+Harness Types
+Applications
+Technical Characteristics
+Related Solutions
+Enquiry CTA
+
+The PPT identifies:
+
+Simple Harness
+Medium Harness
+Complex Harness
+
+Use those categories.
+
+The page should explain the relevant characteristics described in the PPT.
+
+Also include relevant:
+- EMI/EMC solutions
+- RF interconnections
+- Flat cable interconnections
+- Custom/OEM harness capability
+- MIL-standard cables/connectors
+- EWIS
+- Rugged airborne systems
+
+Only where supported by the PPT.
+
+==================================================
+13. PRODUCT DETAIL PAGES — ALL PRODUCTS
+==================================================
+
+Every important product/solution should have a proper detailed page.
+
+Do not leave products with only:
+- title
+- one sentence
+- image
+
+Instead provide useful technical/company information from the PPT.
+
+Where applicable include:
+
+- Product name
+- Overview
+- Description
+- Features
+- Applications
+- Technical specifications
+- Configurations
+- Connector information
+- Cable information
+- Related solutions
+- Product image
+- Request an Enquiry CTA
+
+Use structured layouts that are easy to scan.
+
+Do not overwhelm the visitor with huge blocks of text.
+
+==================================================
+14. RADIO SIMULATORS
+==================================================
+
+Use the PPT information for Radio Simulators.
+
+Include the relevant details such as:
+
+- Radio simulation
+- RF signal routing
+- Multiple radio/communication ports
+- Matrix configuration
+- 6 × 6 channel configuration
+- 4 × 4 channel configuration
+- MIL-grade circular connector
+- 10 TOS station configuration
+- 10 IOS station configuration
+- Cross-talk with PTT
+
+Do not invent additional specifications.
+
+==================================================
+15. RF CABLE SOLUTIONS
+==================================================
+
+Use the PPT information for RF Cable Solutions.
+
+Where supported, include:
+
+- SMA
+- N-Type
+- 50Ω
+- 75Ω
+- BNC
+- MMCX
+- MCX
+- TNC
+- Other RF connectors mentioned in the PPT
+- Coaxial assemblies
+- EMI shielding
+- Phase stability
+- Low loss
+- Semi-rigid RF cable harnesses
+- Rigid RF cable harnesses
+- Aerospace/defence/telecom applications
+- Frequency capability described in the PPT
+
+Do not invent specifications.
+
+==================================================
+16. FIBER OPTIC SOLUTIONS
+==================================================
+
+Use the PPT information to create useful Fiber Optic content.
+
+Where supported include:
+
+- Single-fiber contact
+- Bayonet
+- ST
+- FC
+- SC
+- EC
+- MTP
+- MPO
+- RJ45
+- LC
+- D3899
+- ARINC-801
+- Expanded beam
+- MT expanded beam
+- MT ferrule
+- High-density configurations
+- 12–72 fibers per ferrule where applicable
+- Fiber optic cable assemblies
+- Multi-channel connector configurations
+- Pigtail/fan-out
+- Breakout information
+
+Only use information actually supported by the PPT.
+
+==================================================
+17. MULTIFUNCTIONAL DISPLAYS
+==================================================
+
+Expand the Multifunctional Displays content using the PPT.
+
+Include relevant information about:
+- Avionics
+- Navy
+- Ground systems
+- Navigation
+- Communication
+- System monitoring
+- Configurable displays
+- Weather/radar/sonar/engine information
+- GPS/radar/sonar/engine/autopilot integration
+
+Present it in a premium aerospace product layout.
+
+==================================================
+18. CONTROL PANELS
+==================================================
+
+Expand Control Panels using PPT information.
+
+Include relevant information about:
+- Electrical schematics
+- Layouts
+- PLC
+- HMI
+- Contactors
+- Breakers
+- Protective enclosures
+- Steel/aluminium/plastic enclosure options where supported
+- Wiring
+- Testing
+- Electrical/mechanical/software integration
+- Design
+- Development
+- Manufacturing
+
+==================================================
+19. SYSTEM INTEGRATION / BUILT TO PRINT / BUILT TO SPECIFICATION
+==================================================
+
+Create a strong capability section for:
+
+BUILT TO PRINT
+
+Explain it using the PPT:
+The customer provides designs/drawings/specifications and Airlink builds the complex electronic systems/components/assemblies according to those requirements.
+
+Also create:
+
+BUILT TO SPECIFICATION
+
+Explain it using the PPT:
+The customer provides performance/functional requirements and the manufacturer handles design, engineering, production and assembly of the finished electronic product.
+
+Do not change the meaning of the PPT information.
+
+==================================================
+20. COMPANY CAPABILITIES
+==================================================
+
+Use the PPT to strengthen the overall company positioning.
+
+Where appropriate include:
+
+- In-house manufacturing
+- Product development
+- Prototyping
+- Testing
+- Qualification
+- Design
+- Engineering
+- System integration
+- Cable and wire harness manufacturing
+- Electronic assemblies
+- Sourcing/distribution
+
+==================================================
+21. INDUSTRIES / APPLICATIONS
+==================================================
+
+Use the PPT to organize industries/applications such as:
+
+- Aerospace
+- Defence
+- UAV
+- EV
+- Naval
+- Military applications
+
+Only use supported terminology.
+
+==================================================
+22. IMAGES FROM THE PPT
+==================================================
+
+The attached PPT may contain useful product and technical images.
+
+Inspect the PPT for relevant images.
+
+Where legally/technically appropriate and where the images are part of the supplied company presentation, use the relevant images/assets to strengthen the website.
+
+Prioritize:
+- Cable harness images
+- Radio simulator images
+- RF cable images
+- Fiber optic images
+- Displays
+- Control panels
+- Other relevant Airlink product imagery
+
+Do not randomly place images.
+
+Use images in a premium corporate aerospace layout.
+
+If an image is not suitable for web use, keep the existing website asset instead.
+
+Do not create fake product images.
+
+==================================================
+23. HOME PAGE DESIGN
+==================================================
+
+Redesign the Home page around the Premium Aerospace Corporate theme.
+
+The Home page should have a strong visual hierarchy.
+
+Suggested structure:
+
+1. Premium aerospace hero
+2. Clear Airlink positioning
+3. Cable & Wire Harness Solutions — prominent
+4. Core capabilities
+5. Featured products/solutions
+6. Engineering / manufacturing capability
+7. Built-to-Print / Built-to-Specification
+8. Industries/applications
+9. Company capability statement
+10. Request an Enquiry CTA
+
+Do not overload the Home page.
+
+Use whitespace and strong photography.
+
+==================================================
+24. PRODUCTS DESIGN
+==================================================
+
+The Products page should feel like a premium aerospace product catalogue.
+
+Use:
+- Large clean product images
+- Consistent cards
+- Clear hierarchy
+- Product numbers
+- Short descriptions
+- Category labels
+- Clear "View Details" actions
+- Consistent typography
+- Consistent spacing
+
+Cable & Wire Harness Solutions MUST be first.
+
+==================================================
+25. PRODUCT DETAIL DESIGN
+==================================================
+
+Product detail pages must share one consistent design system.
+
+Use:
+- Large hero/product image
+- Product title
+- Short overview
+- Technical information
+- Features
+- Applications
+- Specifications
+- Related products
+- Enquiry CTA
+
+Do not create a different visual style for each product.
+
+==================================================
+26. NAVIGATION
+==================================================
+
+Keep navigation clean and corporate.
+
+Use consistent:
+- typography
+- spacing
+- hover states
+- active states
+- CTA styling
+
+Remove Login from navigation.
+
+Remove Logout from navigation.
+
+==================================================
+27. RESPONSIVE DESIGN
+==================================================
+
+The renovated website must work properly on:
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+
+Do not sacrifice desktop quality to achieve mobile responsiveness.
+
+Check:
+- navigation
+- product cards
+- product detail pages
+- typography
+- images
+- buttons
+- enquiry forms
+- spacing
+
+==================================================
+28. DO NOT DESTROY EXISTING FUNCTIONALITY
+==================================================
+
+Before changing code, understand existing functionality.
+
+Do NOT:
+- delete the database
+- replace the database
+- remove backend APIs
+- remove enquiry submission
+- remove working product routes
+- delete useful product data
+- delete useful images
+- replace the entire React app with a new template
+
+This is a renovation.
+
+==================================================
+29. CODE QUALITY
+==================================================
+
+Avoid unnecessary duplicate components.
+
+Reuse existing components where practical.
+
+Create reusable design components where necessary.
+
+Maintain clean TypeScript.
+
+Avoid introducing TypeScript errors.
+
+Do not leave broken imports.
+
+Do not leave dead routes.
+
+Do not leave placeholder content.
+
+==================================================
+30. FINAL QUALITY CHECK
+==================================================
+
+After implementing the renovation:
+
+1. Check TypeScript/build errors.
+2. Check frontend routes.
+3. Check product routes.
+4. Check product detail pages.
+5. Check backend connectivity.
+6. Check enquiry functionality.
+7. Check mobile layout.
+8. Check desktop layout.
+9. Check typography consistency.
+10. Check that Manrope is used for headings.
+11. Check that Inter is used for general/body text.
+12. Check that normal text is approximately 12px.
+13. Check that Cable & Wire Harness Solutions is first in Products.
+14. Check that Cable Harnessing is prominently represented on Home.
+15. Check that Cable Harnessing receives strong representation on About.
+16. Check that the Premium Aerospace Corporate theme is consistent across ALL pages.
+17. Check that Login/Logout/AuthGuard have been removed from the website flow.
+18. Check that no unsupported technical claims were invented.
+19. Check that PPT information has been incorporated appropriately.
+20. Check that the website still uses the existing project architecture.
+
+==================================================
+FINAL INSTRUCTION
+==================================================
+
+DO NOT CREATE A NEW WEBSITE.
+
+RENOVATE THE EXISTING AIRLINK AVIATION WEBSITE.
+
+Use the existing GitHub project as the foundation.
+
+Use the attached Airlink Aviation Pvt Ltd PPT as the primary source of company/product/service information.
+
+The final result must look like one cohesive:
+
+PREMIUM AEROSPACE CORPORATE WEBSITE
+
+with:
+
+MANROPE — HEADINGS
+INTER — BODY / GENERAL TEXT
+
+and:
+
+DEEP NAVY
+WHITE
+SOFT GREY
+STEEL GREY
+AIRLINK ORANGE ACCENTS
+
+The most important product/capability is:
+
+CABLE & WIRE HARNESS SOLUTIONS
+
+It must appear first and prominently throughout the website, especially:
+
+HOME
+PRODUCTS
+ABOUT
+CAPABILITIES
+PRODUCT DETAIL
+
+Make the result polished, professional, clean, spacious, technically credible and suitable for an aerospace/defence engineering company.
+
+Do not rebuild from scratch.
+Do not replace the application with a template.
+Renovate the existing website.
