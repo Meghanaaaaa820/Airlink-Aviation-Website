@@ -19,9 +19,17 @@ import {
   resourcesTable,
   type Product,
 } from "@workspace/db/schema";
+import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resendApiKey = process.env.RESEND_API_KEY?.trim();
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
+
+if (!resend) {
+  logger.warn(
+    "RESEND_API_KEY is not configured; enquiry email notifications are disabled.",
+  );
+}
 
 function productSummary(product: Product) {
   return {
@@ -204,30 +212,36 @@ router.post("/enquiries", async (req, res) => {
       })
       .returning({ id: enquiriesTable.id });
 
-    // 2. Send enquiry email to Airlink
-    const recipientEmails = (process.env.ENQUIRY_TO_EMAIL ?? "")
-      .split(",")
-      .map((value) => value.trim())
-      .filter(Boolean);
+    // Email notification is a secondary side effect. The saved enquiry is the
+    // source of truth, so email problems must not turn a successful save into
+    // a failed submission that prompts the visitor to submit it again.
+    if (!resend) {
+      req.log.warn(
+        { enquiryId: created?.id },
+        "Enquiry was saved; email notification skipped because RESEND_API_KEY is not configured",
+      );
+    } else {
+      try {
+        const recipientEmails = (process.env.ENQUIRY_TO_EMAIL ?? "")
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean);
+        const fromEmail = process.env.RESEND_FROM_EMAIL?.trim();
 
-    if (!process.env.RESEND_API_KEY) {
-      throw new Error("RESEND_API_KEY is not configured");
-    }
+        if (!fromEmail) {
+          throw new Error("RESEND_FROM_EMAIL is not configured");
+        }
 
-    if (!process.env.RESEND_FROM_EMAIL) {
-      throw new Error("RESEND_FROM_EMAIL is not configured");
-    }
+        if (recipientEmails.length === 0) {
+          throw new Error("ENQUIRY_TO_EMAIL is not configured");
+        }
 
-    if (recipientEmails.length === 0) {
-      throw new Error("ENQUIRY_TO_EMAIL is not configured");
-    }
-
-    const { error: emailError } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: recipientEmails,
-      replyTo: email,
-      subject: `New Airlink Aviation Enquiry - ${name}`,
-      html: `
+        const { error: emailError } = await resend.emails.send({
+          from: fromEmail,
+          to: recipientEmails,
+          replyTo: email,
+          subject: `New Airlink Aviation Enquiry - ${name}`,
+          html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937;">
           <h2 style="color: #0b2333;">New Website Enquiry</h2>
 
@@ -275,18 +289,20 @@ router.post("/enquiries", async (req, res) => {
           </p>
         </div>
       `,
-    });
+        });
 
-    if (emailError) {
-      req.log.error(
-        { err: emailError },
-        "Enquiry was saved, but email notification failed",
-      );
-
-      res.status(500).json({
-        error: "Your enquiry was saved, but we could not send the email notification.",
-      });
-      return;
+        if (emailError) {
+          req.log.error(
+            { err: emailError, enquiryId: created?.id },
+            "Enquiry was saved, but email notification failed",
+          );
+        }
+      } catch (emailFailure) {
+        req.log.error(
+          { err: emailFailure, enquiryId: created?.id },
+          "Enquiry was saved, but email notification failed",
+        );
+      }
     }
 
     const data = CreateEnquiryResponse.parse({
