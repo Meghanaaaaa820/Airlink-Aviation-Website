@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { and, asc, count, eq, ilike, ne, or } from "drizzle-orm";
 import {
   CreateEnquiryBody,
@@ -22,13 +22,50 @@ import {
 import { logger } from "../lib/logger";
 
 const router: IRouter = Router();
-const resendApiKey = process.env.RESEND_API_KEY?.trim();
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const smtpHost = process.env.TITAN_SMTP_HOST?.trim();
+const smtpPort = Number(process.env.TITAN_SMTP_PORT);
+const smtpUser = process.env.TITAN_SMTP_USER?.trim();
+const smtpPassword = process.env.TITAN_SMTP_PASSWORD;
+const smtpSecure = process.env.TITAN_SMTP_SECURE?.trim().toLowerCase() === "true";
+const missingSmtpSettings = [
+  !smtpHost && "TITAN_SMTP_HOST",
+  (!Number.isInteger(smtpPort) || smtpPort <= 0) && "TITAN_SMTP_PORT",
+  !smtpUser && "TITAN_SMTP_USER",
+  !smtpPassword && "TITAN_SMTP_PASSWORD",
+  !smtpSecure && "TITAN_SMTP_SECURE",
+].filter((setting): setting is string => Boolean(setting));
 
-if (!resend) {
+const mailer = missingSmtpSettings.length
+  ? null
+  : nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: { user: smtpUser, pass: smtpPassword },
+    });
+
+function safeMailErrorCode(error: unknown) {
+  if (typeof error !== "object" || error === null || !("code" in error)) {
+    return "UNKNOWN";
+  }
+  return typeof error.code === "string" ? error.code : "UNKNOWN";
+}
+
+if (!mailer) {
   logger.warn(
-    "RESEND_API_KEY is not configured; enquiry email notifications are disabled.",
+    { missingSettings: missingSmtpSettings },
+    "Titan SMTP is not configured; enquiry email notifications are disabled.",
   );
+} else {
+  void mailer
+    .verify()
+    .then(() => logger.info("Titan SMTP configuration verified."))
+    .catch((error: unknown) => {
+      logger.warn(
+        { errorCode: safeMailErrorCode(error) },
+        "Titan SMTP verification failed; enquiry submissions will remain available.",
+      );
+    });
 }
 
 function productSummary(product: Product) {
@@ -215,10 +252,10 @@ router.post("/enquiries", async (req, res) => {
     // Email notification is a secondary side effect. The saved enquiry is the
     // source of truth, so email problems must not turn a successful save into
     // a failed submission that prompts the visitor to submit it again.
-    if (!resend) {
+    if (!mailer) {
       req.log.warn(
         { enquiryId: created?.id },
-        "Enquiry was saved; email notification skipped because RESEND_API_KEY is not configured",
+        "Enquiry was saved; Titan SMTP notification skipped because SMTP configuration is incomplete",
       );
     } else {
       try {
@@ -226,19 +263,19 @@ router.post("/enquiries", async (req, res) => {
           .split(",")
           .map((value) => value.trim())
           .filter(Boolean);
-        const fromEmail = process.env.RESEND_FROM_EMAIL?.trim();
-
-        if (!fromEmail) {
-          throw new Error("RESEND_FROM_EMAIL is not configured");
-        }
+        const ccEmails = (process.env.ENQUIRY_CC_EMAIL ?? "")
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean);
 
         if (recipientEmails.length === 0) {
           throw new Error("ENQUIRY_TO_EMAIL is not configured");
         }
 
-        const { error: emailError } = await resend.emails.send({
-          from: fromEmail,
+        const result = await mailer.sendMail({
+          from: smtpUser,
           to: recipientEmails,
+          ...(ccEmails.length > 0 ? { cc: ccEmails } : {}),
           replyTo: email,
           subject: `New Airlink Aviation Enquiry - ${name}`,
           html: `
@@ -291,16 +328,19 @@ router.post("/enquiries", async (req, res) => {
       `,
         });
 
-        if (emailError) {
+        if (result.rejected.length > 0) {
           req.log.error(
-            { err: emailError, enquiryId: created?.id },
-            "Enquiry was saved, but email notification failed",
+            { rejectedRecipientCount: result.rejected.length, enquiryId: created?.id },
+            "Enquiry was saved, but Titan SMTP rejected one or more recipients",
           );
         }
       } catch (emailFailure) {
         req.log.error(
-          { err: emailFailure, enquiryId: created?.id },
-          "Enquiry was saved, but email notification failed",
+          {
+            errorCode: safeMailErrorCode(emailFailure),
+            enquiryId: created?.id,
+          },
+          "Enquiry was saved, but Titan SMTP notification failed",
         );
       }
     }

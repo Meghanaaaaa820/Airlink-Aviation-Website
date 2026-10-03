@@ -1,0 +1,76 @@
+Update the existing Airlink Aviation backend enquiry email functionality.
+
+**Important:** This is an official business website. Do not use Resend, test email services, dummy recipients, or fake email configurations. We use Titan Email for our official company email accounts.
+
+### 1. Replace Resend with Nodemailer
+
+* Remove the existing Resend integration from the backend.
+* Remove the `resend` dependency.
+* Install and use `nodemailer` for SMTP email delivery.
+* Add appropriate TypeScript types if required.
+* Update the pnpm lockfile.
+
+### 2. Configure Titan SMTP
+
+Use these settings:
+
+* SMTP host: `smtp.titan.email`
+* SMTP port: `465`
+* Secure: `true`
+* SMTP authentication username: `sales@airlinkaviation.in`
+* SMTP password: Read from `TITAN_SMTP_PASSWORD` environment variable.
+
+Use environment variables for all credentials and configuration. Never hardcode passwords or secrets.
+
+### 3. Official email recipients
+
+Configure:
+
+* Primary recipient (To): `sales@airlinkaviation.in`
+* Additional recipient (CC): `info@airlinkaviation.in`
+* Reply-To: Customer's submitted email address.
+* From: `sales@airlinkaviation.in`
+
+### 4. Environment variables
+
+Use:
+
+* `TITAN_SMTP_HOST`
+* `TITAN_SMTP_PORT`
+* `TITAN_SMTP_USER`
+* `TITAN_SMTP_PASSWORD`
+* `ENQUIRY_TO_EMAIL`
+* `ENQUIRY_CC_EMAIL`
+
+Do not print secret values in logs.
+
+### 5. Enquiry handling
+
+* Validate customer details.
+* Save the enquiry in the existing database.
+* Send a real notification email through Titan SMTP.
+* Email failure must not turn an already successful database save into a failed submission.
+* Log email failures separately.
+* Do not create duplicate enquiry records due to retries.
+* Preserve the existing API response format and status codes.
+
+### 6. Strict restrictions
+
+* Do not change the database schema.
+* Do not delete existing enquiries.
+* Do not reset or reseed the database.
+* Do not change existing website routes or unrelated functionality.
+* Do not introduce fake email addresses or test credentials.
+* Do not commit secrets.
+
+### 7. Validation
+
+After implementation:
+
+* Run backend TypeScript checks.
+* Run the backend build.
+* Verify the SMTP configuration without exposing credentials.
+* Report which changes were made and which tests passed.
+* Do not send test emails to customers without my approval.
+
+Inspect the existing implementation first and make only the necessary changes.

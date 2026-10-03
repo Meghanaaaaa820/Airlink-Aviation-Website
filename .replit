@@ -21,3 +21,13 @@ timeoutMs = 20000
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+ENQUIRY_CC_EMAIL = "info@airlinkaviation.in"
+ENQUIRY_TO_EMAIL = "sales@airlinkaviation.in"
+TITAN_SMTP_HOST = "smtp.titan.email"
+TITAN_SMTP_PORT = "465"
+TITAN_SMTP_SECURE = "true"
+TITAN_SMTP_USER = "sales@airlinkaviation.in"
