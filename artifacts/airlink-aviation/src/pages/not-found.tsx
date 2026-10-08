@@ -1,23 +1,26 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { AlertCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'wouter';
+import { Layout } from '@/components/site/layout';
+import { PageHero } from '@/components/site/ui';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">
-              404 Page Not Found
-            </h1>
+    <Layout>
+      <main>
+        <PageHero eyebrow="Page not found" title="This page could not be found.">
+          <span>The page you are looking for may have moved. Use the navigation or return to the home page.</span>
+        </PageHero>
+        <section className="px-5 py-20 md:px-10">
+          <div className="mx-auto flex max-w-[1360px] flex-wrap gap-3">
+            <Link href="/" className="btn btn-navy">
+              Home <ArrowRight size={15} />
+            </Link>
+            <Link href="/products" className="btn btn-outline">
+              Products
+            </Link>
           </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+        </section>
+      </main>
+    </Layout>
   );
 }

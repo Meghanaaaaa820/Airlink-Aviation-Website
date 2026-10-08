@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
+/* Fonts (Manrope + Inter) are self-hosted via @fontsource-variable, imported in main.tsx. */
+
 @theme inline {
+  /* shadcn/ui semantic tokens (used by components/ui) */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-border: hsl(var(--border));
@@ -40,68 +42,73 @@
   --color-sidebar-accent: hsl(var(--sidebar-accent));
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-ring: hsl(var(--sidebar-ring));
-  --font-sans: var(--app-font-sans);
-  --font-mono: var(--app-font-mono);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Typography: Manrope for headings, Inter for everything else */
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Manrope Variable', 'Manrope', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Premium Aerospace Corporate palette */
+  --color-ink: #071522;
+  --color-navy: #0d2434;
+  --color-navy-soft: #153447;
+  --color-steel: #687780;
+  --color-paper: #f3f5f4;
+  --color-line: #dde3e1;
+  --color-orange: #f39a12;
+  --color-orange-ink: #9a5a00;
 }
 
 :root {
-  /* =====================================================
-     AIRLINK AVIATION — DARK PRECISION THEME
-     ===================================================== */
+  /* Airlink Aviation — Premium Aerospace Corporate */
+  --background: 0 0% 100%;
+  --foreground: 208 55% 8%;
 
-  --background: 150 10% 96%;
-  --foreground: 208 55% 11%;
-
-  --border: 200 13% 83%;
-  --input: 200 13% 83%;
+  --border: 160 8% 87%;
+  --input: 160 8% 87%;
   --ring: 36 91% 52%;
 
   --card: 0 0% 100%;
-  --card-foreground: 208 55% 11%;
-  --card-border: 200 13% 83%;
+  --card-foreground: 208 55% 8%;
+  --card-border: 160 8% 87%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 208 55% 11%;
-  --popover-border: 200 13% 83%;
+  --popover-foreground: 208 55% 8%;
+  --popover-border: 160 8% 87%;
 
-  /* Airlink navy */
-  --primary: 208 55% 11%;
+  /* Deep navy */
+  --primary: 208 55% 8%;
   --primary-foreground: 0 0% 100%;
 
-  /* Technical blue */
+  /* Aerospace navy */
   --secondary: 204 58% 13%;
   --secondary-foreground: 0 0% 100%;
 
-  /* Technical surfaces */
+  /* Soft background and steel grey */
   --muted: 150 10% 96%;
   --muted-foreground: 201 10% 47%;
 
-  /* Airlink orange */
+  /* Airlink orange: accent only */
   --accent: 36 91% 52%;
-  --accent-foreground: 208 55% 11%;
+  --accent-foreground: 208 55% 8%;
 
   --destructive: 4 65% 49%;
   --destructive-foreground: 0 0% 100%;
 
-  /* Sidebar */
-  --sidebar: 208 55% 11%;
+  --sidebar: 208 55% 8%;
   --sidebar-foreground: 0 0% 100%;
   --sidebar-border: 205 28% 20%;
   --sidebar-primary: 36 91% 52%;
-  --sidebar-primary-foreground: 208 55% 11%;
+  --sidebar-primary-foreground: 208 55% 8%;
   --sidebar-accent: 204 58% 13%;
   --sidebar-accent-foreground: 0 0% 100%;
   --sidebar-ring: 36 91% 52%;
 
-  /* Fonts */
-  --app-font-sans: 'Inter', sans-serif;
-  --app-font-mono: 'Inter', sans-serif;
-
-  --radius: 0.2rem;
+  --radius: 0.125rem;
 
   --primary-border: hsl(var(--primary));
   --secondary-border: hsl(var(--secondary));
@@ -116,7 +123,7 @@
 }
 
 .dark {
-  --background: 208 55% 11%;
+  --background: 208 55% 8%;
   --foreground: 0 0% 100%;
   --border: 204 30% 27%;
   --input: 204 30% 27%;
@@ -128,352 +135,229 @@
   --popover-foreground: 0 0% 100%;
   --popover-border: 204 30% 27%;
   --primary: 36 91% 52%;
-  --primary-foreground: 208 55% 11%;
+  --primary-foreground: 208 55% 8%;
   --secondary: 204 30% 27%;
   --secondary-foreground: 0 0% 100%;
   --muted: 204 38% 17%;
   --muted-foreground: 201 10% 70%;
   --accent: 36 91% 52%;
-  --accent-foreground: 208 55% 11%;
+  --accent-foreground: 208 55% 8%;
   --destructive: 4 65% 49%;
   --destructive-foreground: 0 0% 100%;
-  --sidebar: 208 55% 11%;
+  --sidebar: 208 55% 8%;
   --sidebar-foreground: 0 0% 100%;
   --sidebar-border: 214 28% 20%;
   --sidebar-primary: 36 91% 52%;
-  --sidebar-primary-foreground: 208 55% 11%;
+  --sidebar-primary-foreground: 208 55% 8%;
   --sidebar-accent: 204 38% 17%;
   --sidebar-accent-foreground: 0 0% 100%;
   --sidebar-ring: 36 91% 52%;
 }
 
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
 @layer base {
-  * { @apply border-border; }
-  html { scroll-behavior: smooth; }
-  body { @apply font-sans antialiased bg-background text-foreground; }
-  ::selection { background: hsl(var(--accent)); color: hsl(var(--primary)); }
+  * {
+    @apply border-border;
+  }
+
+  html {
+    min-width: 320px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink antialiased;
+    font-family: var(--font-sans);
+    /* General text size: 12px */
+    font-size: 12px;
+    line-height: 1.75;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--color-orange);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 3px;
+  }
 }
 
-.display-font { font-family: 'Space Grotesk', sans-serif; }
-.mono-font { font-family: var(--app-font-mono); }
-.site-grid {
-  position: relative;
-  background-color: #081923;
-  background-image:
-    linear-gradient(
-      rgba(117, 165, 174, .07) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(117, 165, 174, .07) 1px,
-      transparent 1px
-    );
-  background-size: 28px 28px;
-}
-.blueprint-grid {
-  position: relative;
-  background-color: #07151e;
-  background-image:
-    linear-gradient(
-      rgba(117, 165, 174, .075) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(117, 165, 174, .075) 1px,
-      transparent 1px
-    );
-  background-size: 34px 34px;
-}
-.noise::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  pointer-events: none;
-  opacity: .035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
-}
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-.animate-rise { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
-.delay-1 { animation-delay: .08s; } .delay-2 { animation-delay: .16s; } .delay-3 { animation-delay: .24s; }
-.line-marker { position: relative; }
-.line-marker::before { content: ''; position: absolute; left: -1.1rem; top: .55rem; width: .55rem; height: 1px; background: hsl(var(--accent)); }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-}
+/* ------------------------------------------------------------------ */
+/* Reusable design components                                          */
+/* ------------------------------------------------------------------ */
 
-/* =========================================================
-   AIRLINK AVIATION — GLOBAL UI SYSTEM
-   ========================================================= */
+@layer components {
+  /* Section label with a short orange rule */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-orange-ink);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: var(--color-orange);
+    flex: none;
+  }
+  .eyebrow-light {
+    color: var(--color-orange);
+  }
 
-/* ---------- Global rendering ---------- */
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    min-height: 2.9rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0 1.4rem;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .btn-accent {
+    background: var(--color-orange);
+    color: var(--color-ink);
+  }
+  .btn-accent:hover {
+    background: #ffae2e;
+  }
+  .btn-navy {
+    background: var(--color-navy);
+    color: #fff;
+  }
+  .btn-navy:hover {
+    background: var(--color-navy-soft);
+  }
+  .btn-outline {
+    border-color: var(--color-navy);
+    color: var(--color-navy);
+  }
+  .btn-outline:hover {
+    background: var(--color-navy);
+    color: #fff;
+  }
+  .btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+  }
+  .btn-outline-light:hover {
+    border-color: var(--color-orange);
+    color: var(--color-orange);
+  }
 
-html {
-  min-width: 320px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* Text link with arrow */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-navy);
+    transition: color 0.2s ease;
+  }
+  .link-arrow:hover {
+    color: var(--color-orange-ink);
+  }
+  .link-arrow-light {
+    color: var(--color-orange);
+  }
+  .link-arrow-light:hover {
+    color: #fff;
+  }
 
-body {
-  min-width: 320px;
-  overflow-x: hidden;
-}
+  /* Body copy: 12px */
+  .copy {
+    font-size: 12px;
+    line-height: 1.85;
+    color: var(--color-steel);
+  }
+  .copy-light {
+    font-size: 12px;
+    line-height: 1.85;
+    color: #b9c7ce;
+  }
 
-/* ---------- Images ---------- */
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-button,
-a,
-input,
-textarea,
-select {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* ---------- Focus states ---------- */
-
-:focus-visible {
-  outline: 2px solid hsl(var(--accent));
-  outline-offset: 3px;
-}
-
-/* ---------- Premium selection ---------- */
-
-::selection {
-  background: hsl(var(--accent));
-  color: hsl(var(--primary));
-}
-
-/* ---------- Scrollbar ---------- */
-
-html {
-  scrollbar-width: thin;
-  scrollbar-color: #526f78 #07151e;
-}
-
-html::-webkit-scrollbar {
-  width: 9px;
-}
-
-html::-webkit-scrollbar-track {
-  background: #07151e;
-}
-
-html::-webkit-scrollbar-thumb {
-  background: #526f78;
-  border: 2px solid #07151e;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-  background: #d78b2e;
-}
-
-/* =========================================================
-   REUSABLE UI COMPONENTS
-   ========================================================= */
-
-/* ---------- Cards ---------- */
-
-.ui-card {
-  position: relative;
-  border: 1px solid #c7d2ce;
-  background: #f9f8f2;
-  transition:
-    transform 220ms cubic-bezier(.2, .7, .2, 1),
-    border-color 220ms ease,
-    box-shadow 220ms ease;
-}
-
-.ui-card:hover {
-  transform: translateY(-4px);
-  border-color: #8fa4a3;
-  box-shadow: 0 14px 35px rgba(21, 43, 60, 0.08);
+  /* Form controls */
+  .field-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-steel);
+  }
+  .field-input {
+    min-height: 2.9rem;
+    width: 100%;
+    border: 1px solid #d3dbd8;
+    background: #fff;
+    padding: 0 0.95rem;
+    font-size: 12px;
+    color: var(--color-ink);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .field-input:focus {
+    border-color: var(--color-navy);
+  }
+  .field-input::placeholder {
+    color: #7a898e;
+  }
 }
 
-/* ---------- Buttons ---------- */
-
-.ui-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .55rem;
-  min-height: 48px;
-  padding: .8rem 1.25rem;
-  font-family: var(--app-font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  transition:
-    transform 180ms ease,
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.ui-button:hover {
-  transform: translateY(-2px);
-}
-
-.ui-button:active {
-  transform: translateY(0);
-}
-
-.ui-button-primary {
-  background: #193b4b;
-  color: #f5f2e9;
-}
-
-.ui-button-primary:hover {
-  background: #284f5d;
-  box-shadow: 0 8px 22px rgba(25, 59, 75, 0.16);
-}
-
-.ui-button-accent {
-  background: #d78b2e;
-  color: #193b4b;
-}
-
-.ui-button-accent:hover {
-  background: #c47722;
-  box-shadow: 0 8px 22px rgba(199, 119, 34, 0.16);
-}
-
-.ui-button-outline {
-  border: 1px solid #193b4b;
-  color: #193b4b;
-  background: transparent;
-}
-
-.ui-button-outline:hover {
-  background: #193b4b;
-  color: #f5f2e9;
-}
-
-/* ---------- Technical labels ---------- */
-
-.ui-label {
-  font-family: var(--app-font-mono);
-  font-size: 9px;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: #bd7224;
-}
-
-/* ---------- Thin technical divider ---------- */
-
-.ui-divider {
-  width: 100%;
-  height: 1px;
-  background: #c7d2ce;
-}
-
-/* ---------- Image frame ---------- */
-
-.ui-image-frame {
-  position: relative;
-  overflow: hidden;
-  background: #e7eee8;
-}
-
-.ui-image-frame img {
-  transition:
-    transform 600ms cubic-bezier(.2, .7, .2, 1),
-    filter 400ms ease;
-}
-
-.ui-image-frame:hover img {
-  transform: scale(1.035);
-}
-
-/* ---------- Technical corner marker ---------- */
-
-.ui-corner-marker {
-  position: relative;
-}
-
-.ui-corner-marker::before,
-.ui-corner-marker::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  pointer-events: none;
-}
-
-.ui-corner-marker::before {
-  top: 0;
-  left: 0;
-  border-top: 1px solid #d78b2e;
-  border-left: 1px solid #d78b2e;
-}
-
-.ui-corner-marker::after {
-  right: 0;
-  bottom: 0;
-  border-right: 1px solid #d78b2e;
-  border-bottom: 1px solid #d78b2e;
-}
-
-/* =========================================================
-   GRID / BLUEPRINT POLISH
-   ========================================================= */
-
-.site-grid {
-  position: relative;
-  background-color: #f5f2e9;
-  background-image:
-    linear-gradient(
-      rgba(35, 73, 84, .055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(35, 73, 84, .055) 1px,
-      transparent 1px
-    );
-  background-size: 28px 28px;
-}
-
-.blueprint-grid {
-  position: relative;
-  background-color: #183545;
-  background-image:
-    linear-gradient(
-      rgba(150, 205, 202, .075) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(150, 205, 202, .075) 1px,
-      transparent 1px
-    );
-  background-size: 34px 34px;
-}
-
-/* =========================================================
-   SUBTLE ANIMATIONS
-   ========================================================= */
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
 
 @keyframes airlink-fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -481,181 +365,17 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .airlink-fade-up {
-  animation: airlink-fade-up .65s cubic-bezier(.2, .7, .2, 1) both;
+  animation: airlink-fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-
-@keyframes airlink-line-grow {
-  from {
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-
-  to {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-}
-
-.airlink-line-grow {
-  animation: airlink-line-grow .7s cubic-bezier(.2, .7, .2, 1) both;
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 767px) {
-  .site-grid,
-  .blueprint-grid {
-    background-size: 24px 24px;
-  }
-
-  .ui-button {
-    min-height: 46px;
-    padding: .75rem 1rem;
-  }
-
-  .display-font {
-    text-wrap: balance;
-  }
-}
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .ui-card,
-  .ui-button,
-  .ui-image-frame img {
-    transition: none;
-  }
-
-  .ui-card:hover,
-  .ui-button:hover,
-  .ui-button:active {
-    transform: none;
-  }
-
-  .airlink-fade-up,
-  .airlink-line-grow {
-    animation: none;
-  }
-}
-/* =========================================================
-   CONTACT FORM — INPUT VISIBILITY FIX
-   ========================================================= */
-
-input,
-textarea,
-select {
-  color: #193b4b !important;
-  caret-color: #193b4b;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #8a9b9d !important;
-  opacity: 1;
-}
-
-/* Chrome autofill */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: #193b4b !important;
-  caret-color: #193b4b;
-}
-
-/* Selected text */
-input::selection,
-textarea::selection {
-  background: #d78b2e;
-  color: #193b4b;
-}
-html {
-  scroll-behavior: auto;
-}
-/* =========================================================
-   FINAL NAVIGATION / HEADER OFFSET
-   Keeps page content visible below the fixed header.
-   ========================================================= */
-
-html {
-  scroll-padding-top: 96px;
-}
-
-[id] {
-  scroll-margin-top: 96px;
-}
-
-@media (max-width: 768px) {
   html {
-    scroll-padding-top: 82px;
+    scroll-behavior: auto;
   }
-
-  [id] {
-    scroll-margin-top: 82px;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: #071522;
-  -webkit-box-shadow: 0 0 0 1000px #fbfcfb inset;
-  box-shadow: 0 0 0 1000px #fbfcfb inset;
-  caret-color: #f39a12;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-/* Airlink corporate system — precise typography and restrained surfaces */
-:root {
-  --airlink-ink: #071522;
-  --airlink-navy: #0d2434;
-  --airlink-orange: #f39a12;
-  --airlink-paper: #f3f5f4;
-  --airlink-steel: #687780;
-  --app-font-sans: 'Inter', sans-serif;
-}
-body {
-  background: var(--airlink-paper);
-  color: var(--airlink-ink);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-}
-.display-font, h1, h2, h3, h4 {
-  font-family: 'Manrope', sans-serif;
-}
-.mono-font {
-  font-family: 'Inter', sans-serif;
-}
-.noise::after { opacity: .018; }
-.site-grid {
-  background-color: #e9eeec;
-  background-image: linear-gradient(rgba(7,21,34,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(7,21,34,.045) 1px, transparent 1px);
-  background-size: 30px 30px;
-}
-.blueprint-grid {
-  background-color: #0d2434;
-  background-image: linear-gradient(rgba(201,216,223,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(201,216,223,.055) 1px, transparent 1px);
-  background-size: 34px 34px;
-}
-.ui-card {
-  background: #fff;
-  border-color: #d6dfdc;
-  box-shadow: 0 6px 22px rgba(7,21,34,.035);
-}
-.ui-button-primary { background: #0d2434; color: #fff; }
-.ui-button-primary:hover { background: #153a52; }
-.ui-button-accent { background: #f39a12; color: #071522; }
-.ui-button-accent:hover { background: #ffad2d; }
-.ui-label { color: #9a5a00; }
-.ui-divider { background: #d6dfdc; }
-input, textarea, select { font-family: 'Inter', sans-serif; }
-input, textarea, select { color: #071522 !important; }
-input::placeholder, textarea::placeholder { color: #7a898e !important; }
-.airlink-fade-up { animation: airlink-fade-up .72s cubic-bezier(.2,.7,.2,1) both; }
